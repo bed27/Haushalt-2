@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
-<title>Haushaltsplan</title>
+<title>Geldwerk</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Haushalt">
+<meta name="apple-mobile-web-app-title" content="Geldwerk">
 <meta name="theme-color" content="#0B2A4A">
 <meta name="color-scheme" content="light">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -109,6 +109,17 @@ button{cursor:pointer}
 .banner.info{background:var(--ice);color:var(--navy2)}
 .banner span{flex:1}
 .seg.two{grid-template-columns:1fr 1fr}
+.seg.four{grid-template-columns:1fr 1fr}
+.seg.four button:nth-child(3){border-left:0}
+.seg.four button:nth-child(n+3){border-top:1px solid var(--line)}
+.toggle.sm{margin:0;max-width:200px;height:42px}
+.recbox{background:var(--ice);border:1px solid var(--ice2);border-radius:12px;padding:2px 12px 12px;margin-top:12px}
+.recbox .fl{margin-top:12px}
+.recrow{display:flex;align-items:center;gap:10px;padding:11px 12px;border-top:1px solid var(--line);background:#fff;width:100%;text-align:left;border-left:0;border-right:0;border-bottom:0}
+.recrow:active{background:var(--soft)}
+.recrow .m{flex:1;min-width:0}
+.recrow .d{font-weight:600;font-size:15px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.recrow .c{font-size:12.5px;color:var(--muted)}
 .seg button.on.minus{background:var(--red)}
 details.how{border-top:1px solid var(--line);margin-top:14px}
 details.how summary{list-style:none;padding:12px 0 4px;font-weight:650;color:var(--blue);font-size:14.5px}
@@ -162,6 +173,8 @@ td{color:var(--ink);font-variant-numeric:tabular-nums}
 td:first-child{color:var(--navy);font-weight:600}
 tr:last-child td{border-bottom:0}
 tbody tr:nth-child(odd) td,table tr:nth-child(odd) td{background:#F6F9FD}
+table.compact th,table.compact td{padding:8px 6px;font-size:12.5px}
+table.compact th:first-child,table.compact td:first-child{min-width:50px;max-width:60px;padding-left:9px}
 tr.sum td,tr.sum td:first-child{font-weight:700;background:var(--ice)!important}
 td.lbl{color:var(--muted);font-weight:400}
 
@@ -223,7 +236,7 @@ textarea.inp{min-height:84px;resize:vertical}
 
 /* categories */
 details.cat{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:#fff;overflow:hidden}
-details.cat summary{list-style:none;display:flex;align-items:center;gap:10px;padding:13px 12px;font-weight:650;color:var(--navy)}
+details.cat summary{list-style:none;display:flex;align-items:center;gap:10px;padding:13px 12px;font-weight:650;color:var(--navy);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 details.cat summary::-webkit-details-marker{display:none}
 details.cat summary .n{flex:1;min-width:0}
 details.cat summary .chev{transition:transform .2s;opacity:.6}
@@ -233,6 +246,20 @@ details.cat[open] summary .chev{transform:rotate(90deg)}
 .subrow span{flex:1}
 .x{background:#fff;border:1px solid var(--line);color:var(--navy2);border-radius:8px;width:36px;height:34px;display:grid;place-items:center;flex:none}
 .x[data-del-sub],.x[data-del-pay]{color:var(--red)}
+.dragging{position:relative;z-index:6;box-shadow:0 10px 28px rgba(11,42,74,.28)!important;background:#fff;opacity:.97}
+.drop-before{box-shadow:0 -3px 0 0 var(--blue)}
+.drop-after{box-shadow:0 3px 0 0 var(--blue)}
+body.noselect,body.noselect *{-webkit-user-select:none;user-select:none}
+.subrow{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.grip,.subrow .grip{color:#AEB6C2;flex:none;display:grid;place-items:center}
+.catact{flex-wrap:wrap}
+.catact select{order:3;flex:1 1 100%!important}
+.choice{display:flex;flex-direction:column;gap:8px;flex:1;min-width:0}
+.choice .q{font-size:13px;color:var(--muted);font-weight:500}
+.choice .bs{display:flex;gap:8px}
+.choice .bs button{flex:1;border:1.5px solid var(--navy);background:#fff;color:var(--navy);border-radius:10px;padding:10px 6px;font-weight:650;font-size:14.5px}
+.choice .bs button:active{background:var(--navy);color:#fff}
+details.cat.pending{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset}
 .x:active{color:var(--red);border-color:var(--red)}
 .addrow{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:var(--soft)}
 .addrow input,.addrow select{flex:1;min-width:0;border:1px solid var(--line);border-radius:8px;padding:9px 10px;background:#fff;font-size:15px}
@@ -265,7 +292,7 @@ details.cat[open] summary .chev{transform:rotate(90deg)}
 
 <header class="topbar">
   <div class="row">
-    <div><h1 id="ttl">Haushaltsplan</h1><div class="sub" id="ttlsub"></div></div>
+    <div><h1 id="ttl">Geldwerk</h1><div class="sub" id="ttlsub"></div></div>
     <button class="iconbtn" id="menuBtn" aria-label="Menü öffnen">
       <svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
@@ -299,14 +326,41 @@ const DEFAULT_PAY=["Überweisung / Dauerauftrag", "Lastschrift", "Girokarte", "K
 const EXAMPLES=[["2025-11-01","Miete",430,"Ausgabe","Wohnen und Haushalt","Miete","Überweisung / Dauerauftrag","Fest"],["2025-11-01","Fitnessstudio",24.9,"Ausgabe","Fußball und Sport","Fitness und sonstige sportliche Aktivitäten","Lastschrift","Fest"],["2025-11-01","Vereinsbeitrag Fußball",12,"Ausgabe","Fußball und Sport","Vereinsbeiträge","Lastschrift","Fest"],["2025-11-01","Zuschuss Eltern",250,"Einnahme","Einnahmen","Unterstützung durch Familie","Überweisung / Dauerauftrag",""],["2025-11-02","Abschlag Strom",62,"Ausgabe","Wohnen und Haushalt","Nebenkosten / Strom / Heizung","Lastschrift","Fest"],["2025-11-02","Einkauf Supermarkt",21.4,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2025-11-02","Tanken",65.5,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2025-11-03","Internet DSL",29.99,"Ausgabe","Wohnen und Haushalt","Internet","Lastschrift","Fest"],["2025-11-03","Heimspiel Ticket",18,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2025-11-04","Bratwurst & Getränke Stadion",10.83,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2025-11-05","Handyvertrag",14.99,"Ausgabe","Persönliche Ausgaben","Handyvertrag","Lastschrift","Fest"],["2025-11-05","Musik-Streaming",10.99,"Ausgabe","Persönliche Ausgaben","Abonnements und Streaming","Kreditkarte","Fest"],["2025-11-05","Einkauf Supermarkt",36.56,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2025-11-06","Sippenkasse",5,"Ausgabe","Pfadfinder","Sippenkasse","Bar","Fest"],["2025-11-07","Heimspiel Ticket",22,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2025-11-08","Bäcker",3.45,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2025-11-08","Reinigungsmittel",11.68,"Ausgabe","Wohnen und Haushalt","Haushaltsbedarf und Reinigungsmittel","Girokarte","Variabel"],["2025-11-10","Übungsleiterpauschale Jugendtraining",150,"Einnahme","Einnahmen","Nebenjob","Überweisung / Dauerauftrag",""],["2025-11-10","Mittagessen Mensa",4.35,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-11-10","Mittagessen Mensa",4.61,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-11-14","Bäcker",5.09,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2025-11-15","Rundfunkbeitrag Quartal",55.08,"Ausgabe","Wohnen und Haushalt","Rundfunkbeitrag","Lastschrift","Fest"],["2025-11-17","Einkauf Supermarkt",28.09,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2025-11-18","Einkauf Supermarkt",22.42,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2025-11-18","Mittagessen Mensa",5.15,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-11-18","Mittagessen Mensa",3.81,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-11-19","Einkauf Supermarkt",20.73,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2025-11-19","Pizza mit Freunden",15.73,"Ausgabe","Lebensmittel und Drogerie","Mensa und Essen außerhalb","Bar","Variabel"],["2025-11-19","Tanken",57.3,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2025-11-19","Mittagessen Mensa",4.63,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-11-20","Bratwurst & Getränke Stadion",8.44,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2025-11-20","Winterjacke",79.99,"Ausgabe","Persönliche Ausgaben","Kleidung","Girokarte","Spontan / einmalig"],["2025-11-21","Drogerie",9.89,"Ausgabe","Lebensmittel und Drogerie","Drogerie","Girokarte","Variabel"],["2025-11-22","Mittagessen Mensa",3.93,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-11-22","Kino / Ausgehen",25.82,"Ausgabe","Stadion und Freizeit","Kino, Veranstaltungen und Ausgehen","Bar","Variabel"],["2025-11-27","Sparrate Notgroschen",100,"Sparen","Sparen und Rücklagen","Notgroschen","Überweisung / Dauerauftrag","Fest"],["2025-11-27","Sparrate Urlaub",50,"Sparen","Sparen und Rücklagen","Urlaub","Überweisung / Dauerauftrag","Fest"],["2025-11-28","Gehalt Werkstudentenjob",1040,"Einnahme","Einnahmen","Gehalt / Werkstudentenjob","Überweisung / Dauerauftrag",""],["2025-12-01","Miete",430,"Ausgabe","Wohnen und Haushalt","Miete","Überweisung / Dauerauftrag","Fest"],["2025-12-01","Fitnessstudio",24.9,"Ausgabe","Fußball und Sport","Fitness und sonstige sportliche Aktivitäten","Lastschrift","Fest"],["2025-12-01","Vereinsbeitrag Fußball",12,"Ausgabe","Fußball und Sport","Vereinsbeiträge","Lastschrift","Fest"],["2025-12-01","Zuschuss Eltern",250,"Einnahme","Einnahmen","Unterstützung durch Familie","Überweisung / Dauerauftrag",""],["2025-12-01","Bratwurst & Getränke Stadion",13.58,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2025-12-02","Abschlag Strom",62,"Ausgabe","Wohnen und Haushalt","Nebenkosten / Strom / Heizung","Lastschrift","Fest"],["2025-12-03","Internet DSL",29.99,"Ausgabe","Wohnen und Haushalt","Internet","Lastschrift","Fest"],["2025-12-03","Einkauf Supermarkt",45,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2025-12-04","Bäcker",5.56,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2025-12-04","Friseur",22,"Ausgabe","Persönliche Ausgaben","Friseur und Körperpflege","Bar","Variabel"],["2025-12-05","Handyvertrag",14.99,"Ausgabe","Persönliche Ausgaben","Handyvertrag","Lastschrift","Fest"],["2025-12-05","Musik-Streaming",10.99,"Ausgabe","Persönliche Ausgaben","Abonnements und Streaming","Kreditkarte","Fest"],["2025-12-05","Pizza mit Freunden",27.07,"Ausgabe","Lebensmittel und Drogerie","Mensa und Essen außerhalb","Bar","Variabel"],["2025-12-06","Sippenkasse",5,"Ausgabe","Pfadfinder","Sippenkasse","Bar","Fest"],["2025-12-08","Einkauf Supermarkt",55.34,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2025-12-09","Mittagessen Mensa",4.45,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-12-10","Übungsleiterpauschale Jugendtraining",150,"Einnahme","Einnahmen","Nebenjob","Überweisung / Dauerauftrag",""],["2025-12-10","Bratwurst & Getränke Stadion",12.02,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2025-12-11","Mittagessen Mensa",4.85,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-12-12","Kino / Ausgehen",16.37,"Ausgabe","Stadion und Freizeit","Kino, Veranstaltungen und Ausgehen","Bar","Variabel"],["2025-12-12","Fan-Trikot",89.95,"Ausgabe","Stadion und Freizeit","Fanartikel","PayPal","Spontan / einmalig"],["2025-12-13","Drogerie",20.36,"Ausgabe","Lebensmittel und Drogerie","Drogerie","Girokarte","Variabel"],["2025-12-14","Reinigungsmittel",6.35,"Ausgabe","Wohnen und Haushalt","Haushaltsbedarf und Reinigungsmittel","Girokarte","Variabel"],["2025-12-15","Einkauf Supermarkt",45.52,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2025-12-15","Einkauf Supermarkt",34.99,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2025-12-16","Bäcker",7.38,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2025-12-18","Weihnachtsgeschenke",135.4,"Ausgabe","Persönliche Ausgaben","Geschenke und Geburtstage","PayPal","Spontan / einmalig"],["2025-12-20","Bäcker",7.9,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2025-12-20","Mittagessen Mensa",4.49,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-12-21","Mittagessen Mensa",4.64,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-12-22","Mittagessen Mensa",3.72,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-12-22","Heimspiel Ticket",22,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2025-12-22","Heimspiel Ticket",22,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2025-12-23","Einkauf Supermarkt",54.65,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2025-12-24","Bäcker",5.24,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2025-12-24","Mittagessen Mensa",4.86,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-12-25","Tanken",56.72,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2025-12-26","Tanken",63.39,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2025-12-26","Mittagessen Mensa",4.42,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-12-27","Sparrate Notgroschen",100,"Sparen","Sparen und Rücklagen","Notgroschen","Überweisung / Dauerauftrag","Fest"],["2025-12-27","Sparrate Urlaub",50,"Sparen","Sparen und Rücklagen","Urlaub","Überweisung / Dauerauftrag","Fest"],["2025-12-27","Mittagessen Mensa",3.77,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2025-12-28","Gehalt Werkstudentenjob",1040,"Einnahme","Einnahmen","Gehalt / Werkstudentenjob","Überweisung / Dauerauftrag",""],["2026-01-01","Miete",430,"Ausgabe","Wohnen und Haushalt","Miete","Überweisung / Dauerauftrag","Fest"],["2026-01-01","Fitnessstudio",24.9,"Ausgabe","Fußball und Sport","Fitness und sonstige sportliche Aktivitäten","Lastschrift","Fest"],["2026-01-01","Vereinsbeitrag Fußball",12,"Ausgabe","Fußball und Sport","Vereinsbeiträge","Lastschrift","Fest"],["2026-01-01","Zuschuss Eltern",250,"Einnahme","Einnahmen","Unterstützung durch Familie","Überweisung / Dauerauftrag",""],["2026-01-01","Tanken",55.18,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-01-01","Mittagessen Mensa",3.86,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-01-02","Abschlag Strom",62,"Ausgabe","Wohnen und Haushalt","Nebenkosten / Strom / Heizung","Lastschrift","Fest"],["2026-01-02","Einkauf Supermarkt",28.26,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-01-02","Mittagessen Mensa",4.42,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-01-02","Kfz-Versicherung Jahresbeitrag",548,"Ausgabe","Auto und Mobilität","Kfz-Versicherung","Lastschrift","Fest"],["2026-01-03","Internet DSL",29.99,"Ausgabe","Wohnen und Haushalt","Internet","Lastschrift","Fest"],["2026-01-04","Heimspiel Ticket",22,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-01-05","Handyvertrag",14.99,"Ausgabe","Persönliche Ausgaben","Handyvertrag","Lastschrift","Fest"],["2026-01-05","Musik-Streaming",10.99,"Ausgabe","Persönliche Ausgaben","Abonnements und Streaming","Kreditkarte","Fest"],["2026-01-05","Pizza mit Freunden",15.16,"Ausgabe","Lebensmittel und Drogerie","Mensa und Essen außerhalb","Bar","Variabel"],["2026-01-05","Reinigungsmittel",8.09,"Ausgabe","Wohnen und Haushalt","Haushaltsbedarf und Reinigungsmittel","Girokarte","Variabel"],["2026-01-05","Mittagessen Mensa",4.84,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-01-06","Sippenkasse",5,"Ausgabe","Pfadfinder","Sippenkasse","Bar","Fest"],["2026-01-06","Einkauf Supermarkt",39.11,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-01-07","Kino / Ausgehen",13.75,"Ausgabe","Stadion und Freizeit","Kino, Veranstaltungen und Ausgehen","Bar","Variabel"],["2026-01-08","Einkauf Supermarkt",36.7,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-01-09","Bäcker",7.42,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-01-10","Übungsleiterpauschale Jugendtraining",150,"Einnahme","Einnahmen","Nebenjob","Überweisung / Dauerauftrag",""],["2026-01-10","Einkauf Supermarkt",24.08,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-01-13","Bratwurst & Getränke Stadion",9.79,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-01-14","Bäcker",7.93,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-01-15","Privathaftpflicht Jahresbeitrag",64.5,"Ausgabe","Persönliche Ausgaben","Versicherungen","Lastschrift","Fest"],["2026-01-17","Mittagessen Mensa",5.31,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-01-18","Bäcker",4.39,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-01-18","Mittagessen Mensa",4.26,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-01-19","Tanken",48.83,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-01-19","Mittagessen Mensa",4.17,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-01-20","Drogerie",23.37,"Ausgabe","Lebensmittel und Drogerie","Drogerie","Girokarte","Variabel"],["2026-01-20","Semesterbeitrag Sommersemester",178.5,"Ausgabe","Studium","Studiengebühren und Semesterbeitrag","Überweisung / Dauerauftrag","Fest"],["2026-01-21","Mittagessen Mensa",4.82,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-01-21","Bratwurst & Getränke Stadion",9.8,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-01-27","Sparrate Notgroschen",100,"Sparen","Sparen und Rücklagen","Notgroschen","Überweisung / Dauerauftrag","Fest"],["2026-01-27","Sparrate Urlaub",50,"Sparen","Sparen und Rücklagen","Urlaub","Überweisung / Dauerauftrag","Fest"],["2026-01-27","Bäcker",5.15,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-01-28","Gehalt Werkstudentenjob",1040,"Einnahme","Einnahmen","Gehalt / Werkstudentenjob","Überweisung / Dauerauftrag",""],["2026-01-28","Einkauf Supermarkt",41.34,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-01-28","Mittagessen Mensa",5,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-01-28","Heimspiel Ticket",22,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-02-01","Miete",430,"Ausgabe","Wohnen und Haushalt","Miete","Überweisung / Dauerauftrag","Fest"],["2026-02-01","Fitnessstudio",24.9,"Ausgabe","Fußball und Sport","Fitness und sonstige sportliche Aktivitäten","Lastschrift","Fest"],["2026-02-01","Vereinsbeitrag Fußball",12,"Ausgabe","Fußball und Sport","Vereinsbeiträge","Lastschrift","Fest"],["2026-02-01","Zuschuss Eltern",250,"Einnahme","Einnahmen","Unterstützung durch Familie","Überweisung / Dauerauftrag",""],["2026-02-02","Abschlag Strom",62,"Ausgabe","Wohnen und Haushalt","Nebenkosten / Strom / Heizung","Lastschrift","Fest"],["2026-02-03","Internet DSL",29.99,"Ausgabe","Wohnen und Haushalt","Internet","Lastschrift","Fest"],["2026-02-04","Einkauf Supermarkt",18.01,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-02-04","Reinigungsmittel",7.04,"Ausgabe","Wohnen und Haushalt","Haushaltsbedarf und Reinigungsmittel","Girokarte","Variabel"],["2026-02-04","Tanken",60.74,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-02-05","Handyvertrag",14.99,"Ausgabe","Persönliche Ausgaben","Handyvertrag","Lastschrift","Fest"],["2026-02-05","Musik-Streaming",10.99,"Ausgabe","Persönliche Ausgaben","Abonnements und Streaming","Kreditkarte","Fest"],["2026-02-05","Einkauf Supermarkt",43.22,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-02-06","Sippenkasse",5,"Ausgabe","Pfadfinder","Sippenkasse","Bar","Fest"],["2026-02-06","Heimspiel Ticket",18,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-02-07","Bratwurst & Getränke Stadion",13.66,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-02-10","Übungsleiterpauschale Jugendtraining",150,"Einnahme","Einnahmen","Nebenjob","Überweisung / Dauerauftrag",""],["2026-02-10","Tanken",46.8,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-02-11","Einkauf Supermarkt",46.23,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-02-13","Bäcker",3.74,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-02-15","Rundfunkbeitrag Quartal",55.08,"Ausgabe","Wohnen und Haushalt","Rundfunkbeitrag","Lastschrift","Fest"],["2026-02-15","Einkauf Supermarkt",25.63,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-02-15","Tanken",55.09,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-02-16","Drogerie",23.33,"Ausgabe","Lebensmittel und Drogerie","Drogerie","Girokarte","Variabel"],["2026-02-16","Bratwurst & Getränke Stadion",12.8,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-02-17","Kino / Ausgehen",21.41,"Ausgabe","Stadion und Freizeit","Kino, Veranstaltungen und Ausgehen","Bar","Variabel"],["2026-02-20","Bäcker",3.13,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-02-20","Pizza mit Freunden",19.1,"Ausgabe","Lebensmittel und Drogerie","Mensa und Essen außerhalb","Bar","Variabel"],["2026-02-21","Auswärtsfahrt Fanbus",45,"Ausgabe","Stadion und Freizeit","Auswärtsfahrten und Fahrtkosten","Bar","Spontan / einmalig"],["2026-02-23","Friseur",22,"Ausgabe","Persönliche Ausgaben","Friseur und Körperpflege","Bar","Variabel"],["2026-02-24","Heimspiel Ticket",22,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-02-27","Sparrate Notgroschen",100,"Sparen","Sparen und Rücklagen","Notgroschen","Überweisung / Dauerauftrag","Fest"],["2026-02-27","Sparrate Urlaub",50,"Sparen","Sparen und Rücklagen","Urlaub","Überweisung / Dauerauftrag","Fest"],["2026-02-28","Gehalt Werkstudentenjob",1040,"Einnahme","Einnahmen","Gehalt / Werkstudentenjob","Überweisung / Dauerauftrag",""],["2026-02-28","Bäcker",4.04,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-03-01","Miete",430,"Ausgabe","Wohnen und Haushalt","Miete","Überweisung / Dauerauftrag","Fest"],["2026-03-01","Fitnessstudio",24.9,"Ausgabe","Fußball und Sport","Fitness und sonstige sportliche Aktivitäten","Lastschrift","Fest"],["2026-03-01","Vereinsbeitrag Fußball",12,"Ausgabe","Fußball und Sport","Vereinsbeiträge","Lastschrift","Fest"],["2026-03-01","Zuschuss Eltern",250,"Einnahme","Einnahmen","Unterstützung durch Familie","Überweisung / Dauerauftrag",""],["2026-03-01","Einkauf Supermarkt",53.63,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-03-01","Tanken",61.59,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-03-02","Abschlag Strom",62,"Ausgabe","Wohnen und Haushalt","Nebenkosten / Strom / Heizung","Lastschrift","Fest"],["2026-03-03","Internet DSL",29.99,"Ausgabe","Wohnen und Haushalt","Internet","Lastschrift","Fest"],["2026-03-04","Mittagessen Mensa",4.01,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-03-05","Handyvertrag",14.99,"Ausgabe","Persönliche Ausgaben","Handyvertrag","Lastschrift","Fest"],["2026-03-05","Musik-Streaming",10.99,"Ausgabe","Persönliche Ausgaben","Abonnements und Streaming","Kreditkarte","Fest"],["2026-03-06","Sippenkasse",5,"Ausgabe","Pfadfinder","Sippenkasse","Bar","Fest"],["2026-03-06","Neue Fußballschuhe",129.99,"Ausgabe","Fußball und Sport","Schuhe und Sportkleidung","PayPal","Spontan / einmalig"],["2026-03-07","Reinigungsmittel",10.66,"Ausgabe","Wohnen und Haushalt","Haushaltsbedarf und Reinigungsmittel","Girokarte","Variabel"],["2026-03-07","Mittagessen Mensa",4.21,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-03-09","Parkausweis Hochschule SoSe",60,"Ausgabe","Studium","Parken an der Hochschule","Überweisung / Dauerauftrag","Fest"],["2026-03-10","Übungsleiterpauschale Jugendtraining",150,"Einnahme","Einnahmen","Nebenjob","Überweisung / Dauerauftrag",""],["2026-03-10","Einkauf Supermarkt",63.99,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-03-11","Bäcker",6.18,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-03-12","Einkauf Supermarkt",60.69,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-03-12","Einkauf Supermarkt",54.28,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-03-12","Mittagessen Mensa",3.74,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-03-12","Heimspiel Ticket",18,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-03-13","Heimspiel Ticket",18,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-03-14","Kino / Ausgehen",32.52,"Ausgabe","Stadion und Freizeit","Kino, Veranstaltungen und Ausgehen","Bar","Variabel"],["2026-03-14","Nebenkostenerstattung",85.2,"Einnahme","Einnahmen","Rückerstattungen","Überweisung / Dauerauftrag",""],["2026-03-15","Drogerie",21.27,"Ausgabe","Lebensmittel und Drogerie","Drogerie","Girokarte","Variabel"],["2026-03-15","Mittagessen Mensa",5.06,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-03-16","Tanken",50.44,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-03-16","Mittagessen Mensa",4.72,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-03-16","Mittagessen Mensa",5.24,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-03-16","Bratwurst & Getränke Stadion",13.22,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-03-18","Bäcker",6.9,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-03-20","Bäcker",7.06,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-03-20","Mittagessen Mensa",5.11,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-03-24","Pizza mit Freunden",25.25,"Ausgabe","Lebensmittel und Drogerie","Mensa und Essen außerhalb","Bar","Variabel"],["2026-03-24","Tanken",45.61,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-03-24","Mittagessen Mensa",5.38,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-03-25","Bäcker",7.26,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-03-27","Sparrate Notgroschen",100,"Sparen","Sparen und Rücklagen","Notgroschen","Überweisung / Dauerauftrag","Fest"],["2026-03-27","Sparrate Urlaub",50,"Sparen","Sparen und Rücklagen","Urlaub","Überweisung / Dauerauftrag","Fest"],["2026-03-27","Bratwurst & Getränke Stadion",11.62,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-03-28","Gehalt Werkstudentenjob",1040,"Einnahme","Einnahmen","Gehalt / Werkstudentenjob","Überweisung / Dauerauftrag",""],["2026-03-28","Einkauf Supermarkt",22.28,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-03-28","Einkauf Supermarkt",30.27,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-04-01","Miete",430,"Ausgabe","Wohnen und Haushalt","Miete","Überweisung / Dauerauftrag","Fest"],["2026-04-01","Fitnessstudio",24.9,"Ausgabe","Fußball und Sport","Fitness und sonstige sportliche Aktivitäten","Lastschrift","Fest"],["2026-04-01","Vereinsbeitrag Fußball",12,"Ausgabe","Fußball und Sport","Vereinsbeiträge","Lastschrift","Fest"],["2026-04-01","Zuschuss Eltern",250,"Einnahme","Einnahmen","Unterstützung durch Familie","Überweisung / Dauerauftrag",""],["2026-04-01","Tanken",45.3,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-04-02","Abschlag Strom",62,"Ausgabe","Wohnen und Haushalt","Nebenkosten / Strom / Heizung","Lastschrift","Fest"],["2026-04-02","Bratwurst & Getränke Stadion",13.37,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-04-03","Internet DSL",29.99,"Ausgabe","Wohnen und Haushalt","Internet","Lastschrift","Fest"],["2026-04-03","Einkauf Supermarkt",55.64,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-04-03","Einkauf Supermarkt",52.07,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-04-05","Handyvertrag",14.99,"Ausgabe","Persönliche Ausgaben","Handyvertrag","Lastschrift","Fest"],["2026-04-05","Musik-Streaming",10.99,"Ausgabe","Persönliche Ausgaben","Abonnements und Streaming","Kreditkarte","Fest"],["2026-04-05","Bäcker",5.95,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-04-05","Mittagessen Mensa",4.38,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-04-06","Sippenkasse",5,"Ausgabe","Pfadfinder","Sippenkasse","Bar","Fest"],["2026-04-06","Einkauf Supermarkt",64.68,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-04-09","Mittagessen Mensa",3.98,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-04-09","Bratwurst & Getränke Stadion",10.81,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-04-10","Übungsleiterpauschale Jugendtraining",150,"Einnahme","Einnahmen","Nebenjob","Überweisung / Dauerauftrag",""],["2026-04-11","Fachbuch Statistik",49.9,"Ausgabe","Studium","Bücher und Lernmaterialien","PayPal","Spontan / einmalig"],["2026-04-12","Drogerie",18.17,"Ausgabe","Lebensmittel und Drogerie","Drogerie","Girokarte","Variabel"],["2026-04-12","Kino / Ausgehen",35.34,"Ausgabe","Stadion und Freizeit","Kino, Veranstaltungen und Ausgehen","Bar","Variabel"],["2026-04-13","Einkauf Supermarkt",52.94,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-04-15","Bäcker",7.03,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-04-17","Mittagessen Mensa",4.95,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-04-17","Mittagessen Mensa",4.03,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-04-18","Tanken",56.51,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-04-18","Material Gruppenstunde",34.8,"Ausgabe","Pfadfinder","Materialbeschaffung","Bar","Spontan / einmalig"],["2026-04-19","Heimspiel Ticket",22,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-04-20","Pizza mit Freunden",27.72,"Ausgabe","Lebensmittel und Drogerie","Mensa und Essen außerhalb","Bar","Variabel"],["2026-04-22","Reinigungsmittel",14.44,"Ausgabe","Wohnen und Haushalt","Haushaltsbedarf und Reinigungsmittel","Girokarte","Variabel"],["2026-04-22","Friseur",22,"Ausgabe","Persönliche Ausgaben","Friseur und Körperpflege","Bar","Variabel"],["2026-04-24","Einkauf Supermarkt",36.6,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-04-27","Sparrate Notgroschen",100,"Sparen","Sparen und Rücklagen","Notgroschen","Überweisung / Dauerauftrag","Fest"],["2026-04-27","Sparrate Urlaub",50,"Sparen","Sparen und Rücklagen","Urlaub","Überweisung / Dauerauftrag","Fest"],["2026-04-27","Heimspiel Ticket",18,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-04-28","Gehalt Werkstudentenjob",1040,"Einnahme","Einnahmen","Gehalt / Werkstudentenjob","Überweisung / Dauerauftrag",""],["2026-04-28","Mittagessen Mensa",3.95,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-04-28","Mittagessen Mensa",3.98,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-05-01","Miete",430,"Ausgabe","Wohnen und Haushalt","Miete","Überweisung / Dauerauftrag","Fest"],["2026-05-01","Fitnessstudio",24.9,"Ausgabe","Fußball und Sport","Fitness und sonstige sportliche Aktivitäten","Lastschrift","Fest"],["2026-05-01","Vereinsbeitrag Fußball",12,"Ausgabe","Fußball und Sport","Vereinsbeiträge","Lastschrift","Fest"],["2026-05-01","Zuschuss Eltern",250,"Einnahme","Einnahmen","Unterstützung durch Familie","Überweisung / Dauerauftrag",""],["2026-05-01","Einkauf Supermarkt",59.02,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-05-01","Mittagessen Mensa",4.97,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-05-02","Abschlag Strom",62,"Ausgabe","Wohnen und Haushalt","Nebenkosten / Strom / Heizung","Lastschrift","Fest"],["2026-05-03","Internet DSL",29.99,"Ausgabe","Wohnen und Haushalt","Internet","Lastschrift","Fest"],["2026-05-03","Mittagessen Mensa",4.4,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-05-05","Handyvertrag",14.99,"Ausgabe","Persönliche Ausgaben","Handyvertrag","Lastschrift","Fest"],["2026-05-05","Musik-Streaming",10.99,"Ausgabe","Persönliche Ausgaben","Abonnements und Streaming","Kreditkarte","Fest"],["2026-05-05","Einkauf Supermarkt",42.6,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-05-06","Sippenkasse",5,"Ausgabe","Pfadfinder","Sippenkasse","Bar","Fest"],["2026-05-06","Bäcker",3.71,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-05-07","Tanken",50.82,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-05-07","Kino / Ausgehen",33.84,"Ausgabe","Stadion und Freizeit","Kino, Veranstaltungen und Ausgehen","Bar","Variabel"],["2026-05-07","TÜV Hauptuntersuchung",138,"Ausgabe","Auto und Mobilität","TÜV","Girokarte","Spontan / einmalig"],["2026-05-10","Übungsleiterpauschale Jugendtraining",150,"Einnahme","Einnahmen","Nebenjob","Überweisung / Dauerauftrag",""],["2026-05-11","Drogerie",17.35,"Ausgabe","Lebensmittel und Drogerie","Drogerie","Girokarte","Variabel"],["2026-05-11","Pizza mit Freunden",23.55,"Ausgabe","Lebensmittel und Drogerie","Mensa und Essen außerhalb","Bar","Variabel"],["2026-05-14","Einkauf Supermarkt",56.88,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-05-15","Rundfunkbeitrag Quartal",55.08,"Ausgabe","Wohnen und Haushalt","Rundfunkbeitrag","Lastschrift","Fest"],["2026-05-17","Einkauf Supermarkt",24.15,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-05-17","Reinigungsmittel",11,"Ausgabe","Wohnen und Haushalt","Haushaltsbedarf und Reinigungsmittel","Girokarte","Variabel"],["2026-05-17","Mittagessen Mensa",4.41,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-05-17","Heimspiel Ticket",22,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-05-17","Bratwurst & Getränke Stadion",13.59,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-05-18","Tanken",46.19,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-05-18","Bratwurst & Getränke Stadion",13.25,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-05-20","Mittagessen Mensa",5.35,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-05-20","Mittagessen Mensa",4.52,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-05-23","Mittagessen Mensa",4.1,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-05-23","Heimspiel Ticket",22,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-05-23","Geburtstagsgeschenk Lena",35,"Ausgabe","Persönliche Ausgaben","Geschenke und Geburtstage","Bar","Spontan / einmalig"],["2026-05-25","Einkauf Supermarkt",26.61,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-05-25","Bäcker",7,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-05-27","Sparrate Notgroschen",100,"Sparen","Sparen und Rücklagen","Notgroschen","Überweisung / Dauerauftrag","Fest"],["2026-05-27","Sparrate Urlaub",50,"Sparen","Sparen und Rücklagen","Urlaub","Überweisung / Dauerauftrag","Fest"],["2026-05-27","Einkauf Supermarkt",60.5,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-05-28","Gehalt Werkstudentenjob",1040,"Einnahme","Einnahmen","Gehalt / Werkstudentenjob","Überweisung / Dauerauftrag",""],["2026-06-01","Miete",430,"Ausgabe","Wohnen und Haushalt","Miete","Überweisung / Dauerauftrag","Fest"],["2026-06-01","Fitnessstudio",24.9,"Ausgabe","Fußball und Sport","Fitness und sonstige sportliche Aktivitäten","Lastschrift","Fest"],["2026-06-01","Vereinsbeitrag Fußball",12,"Ausgabe","Fußball und Sport","Vereinsbeiträge","Lastschrift","Fest"],["2026-06-01","Zuschuss Eltern",250,"Einnahme","Einnahmen","Unterstützung durch Familie","Überweisung / Dauerauftrag",""],["2026-06-02","Abschlag Strom",62,"Ausgabe","Wohnen und Haushalt","Nebenkosten / Strom / Heizung","Lastschrift","Fest"],["2026-06-03","Internet DSL",29.99,"Ausgabe","Wohnen und Haushalt","Internet","Lastschrift","Fest"],["2026-06-03","Einkauf Supermarkt",28,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-06-03","Kfz-Steuer",96,"Ausgabe","Auto und Mobilität","Kfz-Steuer","Lastschrift","Fest"],["2026-06-05","Handyvertrag",14.99,"Ausgabe","Persönliche Ausgaben","Handyvertrag","Lastschrift","Fest"],["2026-06-05","Musik-Streaming",10.99,"Ausgabe","Persönliche Ausgaben","Abonnements und Streaming","Kreditkarte","Fest"],["2026-06-05","Pizza mit Freunden",27.55,"Ausgabe","Lebensmittel und Drogerie","Mensa und Essen außerhalb","Bar","Variabel"],["2026-06-06","Sippenkasse",5,"Ausgabe","Pfadfinder","Sippenkasse","Bar","Fest"],["2026-06-06","Tanken",65.79,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-06-06","Mittagessen Mensa",4.87,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-06-08","Reinigungsmittel",12.72,"Ausgabe","Wohnen und Haushalt","Haushaltsbedarf und Reinigungsmittel","Girokarte","Variabel"],["2026-06-10","Übungsleiterpauschale Jugendtraining",150,"Einnahme","Einnahmen","Nebenjob","Überweisung / Dauerauftrag",""],["2026-06-10","Friseur",22,"Ausgabe","Persönliche Ausgaben","Friseur und Körperpflege","Bar","Variabel"],["2026-06-11","Mittagessen Mensa",3.77,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-06-11","Kino / Ausgehen",25.45,"Ausgabe","Stadion und Freizeit","Kino, Veranstaltungen und Ausgehen","Bar","Variabel"],["2026-06-12","Mittagessen Mensa",3.64,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-06-12","Kurzurlaub Gardasee",420,"Ausgabe","Persönliche Ausgaben","Urlaub und Reisen","Kreditkarte","Spontan / einmalig"],["2026-06-13","Tanken",63.58,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-06-14","Einkauf Supermarkt",23.72,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-06-14","Mittagessen Mensa",3.95,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-06-15","Einkauf Supermarkt",32.85,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-06-17","Mittagessen Mensa",4.33,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-06-18","Mittagessen Mensa",4.43,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-06-19","Drogerie",11.14,"Ausgabe","Lebensmittel und Drogerie","Drogerie","Girokarte","Variabel"],["2026-06-22","Einkauf Supermarkt",29.31,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-06-23","Bäcker",6.22,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-06-23","Mittagessen Mensa",3.63,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-06-25","Bäcker",3.77,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-06-26","Bäcker",3.61,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-06-27","Sparrate Notgroschen",100,"Sparen","Sparen und Rücklagen","Notgroschen","Überweisung / Dauerauftrag","Fest"],["2026-06-27","Sparrate Urlaub",50,"Sparen","Sparen und Rücklagen","Urlaub","Überweisung / Dauerauftrag","Fest"],["2026-06-28","Gehalt Werkstudentenjob",1040,"Einnahme","Einnahmen","Gehalt / Werkstudentenjob","Überweisung / Dauerauftrag",""],["2026-07-01","Miete",430,"Ausgabe","Wohnen und Haushalt","Miete","Überweisung / Dauerauftrag","Fest"],["2026-07-01","Fitnessstudio",24.9,"Ausgabe","Fußball und Sport","Fitness und sonstige sportliche Aktivitäten","Lastschrift","Fest"],["2026-07-01","Vereinsbeitrag Fußball",12,"Ausgabe","Fußball und Sport","Vereinsbeiträge","Lastschrift","Fest"],["2026-07-01","Zuschuss Eltern",250,"Einnahme","Einnahmen","Unterstützung durch Familie","Überweisung / Dauerauftrag",""],["2026-07-02","Abschlag Strom",62,"Ausgabe","Wohnen und Haushalt","Nebenkosten / Strom / Heizung","Lastschrift","Fest"],["2026-07-03","Internet DSL",29.99,"Ausgabe","Wohnen und Haushalt","Internet","Lastschrift","Fest"],["2026-07-03","Einkauf Supermarkt",23.3,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-07-03","Mittagessen Mensa",4.08,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-07-04","Einkauf Supermarkt",21.95,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-07-04","Mittagessen Mensa",4.42,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-07-05","Handyvertrag",14.99,"Ausgabe","Persönliche Ausgaben","Handyvertrag","Lastschrift","Fest"],["2026-07-05","Musik-Streaming",10.99,"Ausgabe","Persönliche Ausgaben","Abonnements und Streaming","Kreditkarte","Fest"],["2026-07-06","Sippenkasse",5,"Ausgabe","Pfadfinder","Sippenkasse","Bar","Fest"],["2026-07-08","Bremsen vorne erneuert",382.4,"Ausgabe","Auto und Mobilität","Wartung und Reparaturen","Girokarte","Spontan / einmalig"],["2026-07-09","Einkauf Supermarkt",19.86,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-07-09","Reinigungsmittel",6.52,"Ausgabe","Wohnen und Haushalt","Haushaltsbedarf und Reinigungsmittel","Girokarte","Variabel"],["2026-07-09","Tanken",64.71,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-07-09","Kino / Ausgehen",28.16,"Ausgabe","Stadion und Freizeit","Kino, Veranstaltungen und Ausgehen","Bar","Variabel"],["2026-07-10","Übungsleiterpauschale Jugendtraining",150,"Einnahme","Einnahmen","Nebenjob","Überweisung / Dauerauftrag",""],["2026-07-11","Mittagessen Mensa",5.39,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-07-13","Bäcker",3.75,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-07-14","Tanken",63.8,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-07-14","Mittagessen Mensa",5.27,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-07-20","Mittagessen Mensa",5.14,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-07-21","Semesterbeitrag Wintersemester",178.5,"Ausgabe","Studium","Studiengebühren und Semesterbeitrag","Überweisung / Dauerauftrag","Fest"],["2026-07-23","Pizza mit Freunden",18.58,"Ausgabe","Lebensmittel und Drogerie","Mensa und Essen außerhalb","Bar","Variabel"],["2026-07-24","Drogerie",17.56,"Ausgabe","Lebensmittel und Drogerie","Drogerie","Girokarte","Variabel"],["2026-07-25","Einkauf Supermarkt",26.53,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-07-25","Einkauf Supermarkt",24.09,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-07-26","Einkauf Supermarkt",28.74,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-07-26","Mittagessen Mensa",4.07,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-07-27","Sparrate Notgroschen",100,"Sparen","Sparen und Rücklagen","Notgroschen","Überweisung / Dauerauftrag","Fest"],["2026-07-27","Sparrate Urlaub",50,"Sparen","Sparen und Rücklagen","Urlaub","Überweisung / Dauerauftrag","Fest"],["2026-07-27","Bäcker",7.73,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-07-28","Gehalt Werkstudentenjob",1040,"Einnahme","Einnahmen","Gehalt / Werkstudentenjob","Überweisung / Dauerauftrag",""],["2026-07-28","Bäcker",7.56,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-08-01","Miete",430,"Ausgabe","Wohnen und Haushalt","Miete","Überweisung / Dauerauftrag","Fest"],["2026-08-01","Fitnessstudio",24.9,"Ausgabe","Fußball und Sport","Fitness und sonstige sportliche Aktivitäten","Lastschrift","Fest"],["2026-08-01","Vereinsbeitrag Fußball",12,"Ausgabe","Fußball und Sport","Vereinsbeiträge","Lastschrift","Fest"],["2026-08-01","Zuschuss Eltern",250,"Einnahme","Einnahmen","Unterstützung durch Familie","Überweisung / Dauerauftrag",""],["2026-08-01","Kluft / Halstuch",42.5,"Ausgabe","Pfadfinder","Kleidung und Ausrüstung","PayPal","Spontan / einmalig"],["2026-08-02","Abschlag Strom",62,"Ausgabe","Wohnen und Haushalt","Nebenkosten / Strom / Heizung","Lastschrift","Fest"],["2026-08-02","Pizza mit Freunden",14.21,"Ausgabe","Lebensmittel und Drogerie","Mensa und Essen außerhalb","Bar","Variabel"],["2026-08-02","Sommerlager Pfadfinder",185,"Ausgabe","Pfadfinder","Lager und Fahrten","Überweisung / Dauerauftrag","Spontan / einmalig"],["2026-08-03","Internet DSL",29.99,"Ausgabe","Wohnen und Haushalt","Internet","Lastschrift","Fest"],["2026-08-04","Einkauf Supermarkt",63.55,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-08-05","Handyvertrag",14.99,"Ausgabe","Persönliche Ausgaben","Handyvertrag","Lastschrift","Fest"],["2026-08-05","Musik-Streaming",10.99,"Ausgabe","Persönliche Ausgaben","Abonnements und Streaming","Kreditkarte","Fest"],["2026-08-06","Sippenkasse",5,"Ausgabe","Pfadfinder","Sippenkasse","Bar","Fest"],["2026-08-07","Einkauf Supermarkt",61.82,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-08-07","Bäcker",4.45,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-08-07","Kino / Ausgehen",37.54,"Ausgabe","Stadion und Freizeit","Kino, Veranstaltungen und Ausgehen","Bar","Variabel"],["2026-08-08","Drogerie",23.92,"Ausgabe","Lebensmittel und Drogerie","Drogerie","Girokarte","Variabel"],["2026-08-09","Einkauf Supermarkt",20.37,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-08-09","Bäcker",4.74,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-08-10","Übungsleiterpauschale Jugendtraining",150,"Einnahme","Einnahmen","Nebenjob","Überweisung / Dauerauftrag",""],["2026-08-10","Bäcker",5.66,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-08-11","Friseur",22,"Ausgabe","Persönliche Ausgaben","Friseur und Körperpflege","Bar","Variabel"],["2026-08-15","Rundfunkbeitrag Quartal",55.08,"Ausgabe","Wohnen und Haushalt","Rundfunkbeitrag","Lastschrift","Fest"],["2026-08-15","Tanken",47.23,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-08-17","Einkauf Supermarkt",51.35,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-08-17","Bäcker",6.36,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-08-17","Tanken",54.97,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-08-17","Bratwurst & Getränke Stadion",9.15,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-08-22","Bratwurst & Getränke Stadion",10.47,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-08-24","Reinigungsmittel",10.55,"Ausgabe","Wohnen und Haushalt","Haushaltsbedarf und Reinigungsmittel","Girokarte","Variabel"],["2026-08-27","Sparrate Notgroschen",100,"Sparen","Sparen und Rücklagen","Notgroschen","Überweisung / Dauerauftrag","Fest"],["2026-08-27","Sparrate Urlaub",50,"Sparen","Sparen und Rücklagen","Urlaub","Überweisung / Dauerauftrag","Fest"],["2026-08-27","Heimspiel Ticket",22,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-08-27","Heimspiel Ticket",22,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-08-28","Gehalt Werkstudentenjob",1040,"Einnahme","Einnahmen","Gehalt / Werkstudentenjob","Überweisung / Dauerauftrag",""],["2026-09-01","Miete",430,"Ausgabe","Wohnen und Haushalt","Miete","Überweisung / Dauerauftrag","Fest"],["2026-09-01","Fitnessstudio",24.9,"Ausgabe","Fußball und Sport","Fitness und sonstige sportliche Aktivitäten","Lastschrift","Fest"],["2026-09-01","Vereinsbeitrag Fußball",12,"Ausgabe","Fußball und Sport","Vereinsbeiträge","Lastschrift","Fest"],["2026-09-01","Zuschuss Eltern",250,"Einnahme","Einnahmen","Unterstützung durch Familie","Überweisung / Dauerauftrag",""],["2026-09-02","Abschlag Strom",62,"Ausgabe","Wohnen und Haushalt","Nebenkosten / Strom / Heizung","Lastschrift","Fest"],["2026-09-02","Einkauf Supermarkt",57.34,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-09-03","Internet DSL",29.99,"Ausgabe","Wohnen und Haushalt","Internet","Lastschrift","Fest"],["2026-09-03","Bäcker",6.13,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-09-05","Handyvertrag",14.99,"Ausgabe","Persönliche Ausgaben","Handyvertrag","Lastschrift","Fest"],["2026-09-05","Musik-Streaming",10.99,"Ausgabe","Persönliche Ausgaben","Abonnements und Streaming","Kreditkarte","Fest"],["2026-09-06","Sippenkasse",5,"Ausgabe","Pfadfinder","Sippenkasse","Bar","Fest"],["2026-09-06","Tanken",48.31,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-09-08","Bratwurst & Getränke Stadion",7.24,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-09-09","Bäcker",5.15,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-09-09","Drogerie",10.27,"Ausgabe","Lebensmittel und Drogerie","Drogerie","Girokarte","Variabel"],["2026-09-09","Bratwurst & Getränke Stadion",9.55,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-09-10","Übungsleiterpauschale Jugendtraining",150,"Einnahme","Einnahmen","Nebenjob","Überweisung / Dauerauftrag",""],["2026-09-10","Tanken",45.95,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-09-10","Kino / Ausgehen",17.66,"Ausgabe","Stadion und Freizeit","Kino, Veranstaltungen und Ausgehen","Bar","Variabel"],["2026-09-11","Heimspiel Ticket",22,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-09-13","Einkauf Supermarkt",64.5,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-09-15","Heimspiel Ticket",18,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"],["2026-09-17","Reinigungsmittel",12.03,"Ausgabe","Wohnen und Haushalt","Haushaltsbedarf und Reinigungsmittel","Girokarte","Variabel"],["2026-09-19","Bücherregal",79,"Ausgabe","Wohnen und Haushalt","Möbel und Einrichtung","Girokarte","Spontan / einmalig"],["2026-09-20","Tanken",50.09,"Ausgabe","Auto und Mobilität","Kraftstoff","Girokarte","Variabel"],["2026-09-24","Einkauf Supermarkt",47.89,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-09-26","Winterreifen (gebraucht) + Montage",245,"Ausgabe","Auto und Mobilität","Wartung und Reparaturen","Girokarte","Spontan / einmalig"],["2026-09-27","Sparrate Notgroschen",100,"Sparen","Sparen und Rücklagen","Notgroschen","Überweisung / Dauerauftrag","Fest"],["2026-09-27","Sparrate Urlaub",50,"Sparen","Sparen und Rücklagen","Urlaub","Überweisung / Dauerauftrag","Fest"],["2026-09-27","Einkauf Supermarkt",59.45,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-09-27","Pizza mit Freunden",19.33,"Ausgabe","Lebensmittel und Drogerie","Mensa und Essen außerhalb","Bar","Variabel"],["2026-09-27","Autowäsche",12,"Ausgabe","Auto und Mobilität","Autowäsche","Girokarte","Variabel"],["2026-09-28","Gehalt Werkstudentenjob",1040,"Einnahme","Einnahmen","Gehalt / Werkstudentenjob","Überweisung / Dauerauftrag",""],["2026-10-01","Miete",430,"Ausgabe","Wohnen und Haushalt","Miete","Überweisung / Dauerauftrag","Fest"],["2026-10-01","Fitnessstudio",24.9,"Ausgabe","Fußball und Sport","Fitness und sonstige sportliche Aktivitäten","Lastschrift","Fest"],["2026-10-01","Vereinsbeitrag Fußball",12,"Ausgabe","Fußball und Sport","Vereinsbeiträge","Lastschrift","Fest"],["2026-10-01","Zuschuss Eltern",250,"Einnahme","Einnahmen","Unterstützung durch Familie","Überweisung / Dauerauftrag",""],["2026-10-01","Einkauf Supermarkt",33.76,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-10-02","Abschlag Strom",62,"Ausgabe","Wohnen und Haushalt","Nebenkosten / Strom / Heizung","Lastschrift","Fest"],["2026-10-03","Internet DSL",29.99,"Ausgabe","Wohnen und Haushalt","Internet","Lastschrift","Fest"],["2026-10-03","Einkauf Supermarkt",40.31,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-10-03","Bäcker",4.32,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-10-03","Bäcker",3.72,"Ausgabe","Lebensmittel und Drogerie","Bäckerei","Bar","Variabel"],["2026-10-03","Bratwurst & Getränke Stadion",7.22,"Ausgabe","Stadion und Freizeit","Verpflegung im Stadion","Bar","Variabel"],["2026-10-04","Friseur",22,"Ausgabe","Persönliche Ausgaben","Friseur und Körperpflege","Bar","Variabel"],["2026-10-05","Handyvertrag",14.99,"Ausgabe","Persönliche Ausgaben","Handyvertrag","Lastschrift","Fest"],["2026-10-05","Musik-Streaming",10.99,"Ausgabe","Persönliche Ausgaben","Abonnements und Streaming","Kreditkarte","Fest"],["2026-10-05","Mittagessen Mensa",3.68,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-10-05","Kino / Ausgehen",28.57,"Ausgabe","Stadion und Freizeit","Kino, Veranstaltungen und Ausgehen","Bar","Variabel"],["2026-10-05","Parkausweis Hochschule WiSe",60,"Ausgabe","Studium","Parken an der Hochschule","Überweisung / Dauerauftrag","Fest"],["2026-10-06","Sippenkasse",5,"Ausgabe","Pfadfinder","Sippenkasse","Bar","Fest"],["2026-10-08","Einkauf Supermarkt",41.72,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-10-08","Reinigungsmittel",6.76,"Ausgabe","Wohnen und Haushalt","Haushaltsbedarf und Reinigungsmittel","Girokarte","Variabel"],["2026-10-09","Drogerie",14.91,"Ausgabe","Lebensmittel und Drogerie","Drogerie","Girokarte","Variabel"],["2026-10-09","Geburtstagsgeschenk Papa",45,"Ausgabe","Persönliche Ausgaben","Geschenke und Geburtstage","PayPal","Spontan / einmalig"],["2026-10-10","Übungsleiterpauschale Jugendtraining",150,"Einnahme","Einnahmen","Nebenjob","Überweisung / Dauerauftrag",""],["2026-10-10","Pizza mit Freunden",18.26,"Ausgabe","Lebensmittel und Drogerie","Mensa und Essen außerhalb","Bar","Variabel"],["2026-10-16","Mittagessen Mensa",3.87,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-10-16","Notgroschen: Werkstattrücklage",50,"Sparen","Sparen und Rücklagen","Auto-Reparaturen und unerwartete Kosten","Überweisung / Dauerauftrag","Spontan / einmalig"],["2026-10-17","Einkauf Supermarkt",48.83,"Ausgabe","Lebensmittel und Drogerie","Supermarkt","Girokarte","Variabel"],["2026-10-17","Mittagessen Mensa",4.73,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-10-17","Mittagessen Mensa",3.85,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-10-17","Mittagessen Mensa",4.96,"Ausgabe","Studium","Essen an der Hochschule / Mensa","Girokarte","Variabel"],["2026-10-19","Heimspiel Ticket",18,"Ausgabe","Stadion und Freizeit","Stadiontickets","Kreditkarte","Variabel"]];
 
 
+
 /* ---------- Speicher ---------- */
 const KEY='haushaltsplan.v1';
 let S;
-function fresh(){return{v:1,cats:JSON.parse(JSON.stringify(DEFAULT_CATS)),pay:[...DEFAULT_PAY],
-  start:{betrag:0,datum:todayISO()},bookings:[],setupDone:false};}
+// Startnamen der Hauptkategorien (Unterkategorien bleiben unverändert).
+// "choice": einmalige Auswahl zwischen zwei Varianten im Reiter Kategorien.
+const RENAME0={'Auto und Mobilität':{name:'Auto',choice:['Auto','Öffentlicher Nahverkehr']},
+  'Studium':{name:'Studium',choice:['Arbeit','Studium']},
+  'Pfadfinder':{name:'Hobby 1'},'Fußball und Sport':{name:'Hobby 2'},'Stadion und Freizeit':{name:'Hobby 3'}};
+function defaultCats(){return DEFAULT_CATS.map(c=>{const r=RENAME0[c.name]||{};const o=JSON.parse(JSON.stringify(c));
+  o.orig=c.name;o.name=r.name||c.name;if(r.choice)o.choice=[...r.choice];return o;});}
+function fresh(){return{v:3,cats:defaultCats(),pay:[...DEFAULT_PAY],
+  start:{betrag:0,datum:todayISO()},bookings:[],recurring:[],setupDone:false};}
+function renameMain(oldN,newN){let k=0;
+  S.bookings.forEach(b=>{if(b.haupt===oldN){b.haupt=newN;k++;}});
+  (S.recurring||[]).forEach(r=>{if(r.haupt===oldN)r.haupt=newN;});return k;}
+function renameSub(main,oldN,newN){let k=0;
+  S.bookings.forEach(b=>{if(b.haupt===main&&b.unter===oldN){b.unter=newN;k++;}});
+  (S.recurring||[]).forEach(r=>{if(r.haupt===main&&r.unter===oldN)r.unter=newN;});return k;}
+function migrate(){
+  if((S.v||1)<3){ // Daten aus Version 1/2 übernehmen: neue Startnamen der Kategorien
+    const defNames=new Set(DEFAULT_CATS.map(c=>c.name));
+    for(const c of S.cats){if(c.orig)continue;
+      const r=RENAME0[c.name];
+      if(r){const old=c.name;c.orig=old;
+        if(r.name!==old&&!S.cats.some(x=>x!==c&&x.name===r.name)){c.name=r.name;renameMain(old,r.name);}
+        if(r.choice)c.choice=[...r.choice];}
+      else if(defNames.has(c.name))c.orig=c.name;}
+    S.v=3;}
+  if(!S.recurring)S.recurring=[];
+}
 function load(){
   try{const raw=localStorage.getItem(KEY); S=raw?JSON.parse(raw):fresh();}catch(e){S=fresh();}
-  if(!S.cats)S.cats=fresh().cats; if(!S.pay)S.pay=[...DEFAULT_PAY]; if(!S.bookings)S.bookings=[]; if(!S.start)S.start={betrag:0,datum:todayISO()};
+  if(!S.cats)S.cats=defaultCats(); if(!S.pay)S.pay=[...DEFAULT_PAY]; if(!S.bookings)S.bookings=[]; if(!S.start)S.start={betrag:0,datum:todayISO()};
+  migrate();
 }
 function save(){
   try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Speichern fehlgeschlagen');}
@@ -403,7 +457,7 @@ function renderStart(){
   $('#pStart').innerHTML=`
     <div class="hero"><div class="l">Kontostand</div>
       <div class="v ${kv<0?'neg':''}">${fmtE.format(kv===0?0:kv)}</div>
-      <div class="f">heute, ${fmtDate(todayISO())} · Anfangsbudget ${fmtE0.format(+S.start.betrag||0)} seit ${fmtDate(S.start.datum)}</div></div>
+      <div class="f">Stand heute, ${fmtDate(todayISO())}</div></div>
     <div class="grid2">
       <div class="st"><div class="l">Ausgaben ${MONATE[m-1]}</div><div class="v">${eur(aus)}</div><div class="h">von ${fmtE0.format(bud)} Budget</div></div>
       <div class="st"><div class="l">Verfügbares Budget</div><div class="v">${eur(rest)}</div>
@@ -431,7 +485,7 @@ function bookingRow(b){
   if(needsCat(b)){cat='⚠ Kategorie eintragen'+(b.haupt?` (vorher: ${esc(b.haupt)})`:'');warn=true;}
   else if(needsSub(b)){cat=`⚠ ${esc(b.haupt)} › Unterkategorie eintragen`;warn=true;}
   else cat=esc([b.haupt,b.unter].filter(Boolean).join(' › '));
-  return `<button class="brow" data-id="${b.id}"><div class="bi ${k}">${ICON[k]}</div><div class="m"><div class="d">${esc(b.desc||b.unter||b.haupt||'Buchung')}</div><div class="c ${warn?'warn':''}">${warn?cat:fmtDate(b.date)+' · '+cat}</div></div><div class="a">${eur(sign*b.amount)}</div></button>`;}
+  return `<button class="brow" data-id="${b.id}"><div class="bi ${k}">${ICON[k]}</div><div class="m"><div class="d">${esc(b.desc||b.unter||b.haupt||'Buchung')}</div><div class="c ${warn?'warn':''}">${warn?cat:(b.rid?'↻ ':'')+fmtDate(b.date)+' · '+cat}</div></div><div class="a">${eur(sign*b.amount)}</div></button>`;}
 function bindRows(root){root.querySelectorAll('.brow').forEach(el=>el.onclick=()=>openForm(S.bookings.find(b=>b.id===el.dataset.id)));}
 
 /* ---------- Dashboard ---------- */
@@ -482,11 +536,11 @@ function renderDash(){
    </div></div>
    <div class="sec"><h2>Ausgaben nach Kategorie</h2>${hBars(rows.filter(r=>r.ist>0||(+r.c.budget)).map(r=>({label:r.c.name,a:r.ist,b:+r.c.budget||0})))}</div>
    <div class="sec"><h2>Einnahmen und Ausgaben je Monat ${y}</h2>${groupedBars(MK.map(x=>x[0]),[{name:'Einnahmen',color:C1,data:months.map(x=>x.e)},{name:'Ausgaben',color:C2,data:months.map(x=>x.o)},{name:'Gespart',color:C3,data:months.map(x=>x.s)}],{line:bud})}</div>
-   <div class="sec"><h2>Monatsvergleich ${y}</h2><div class="tw"><table>
+   <div class="sec"><h2>Monatsvergleich ${y}</h2><div class="tw"><table class="compact">
      <tr><th>Monat</th><th>Einnahmen</th><th>Ausgaben</th><th>Gespart</th><th>Überschuss</th><th>Budget</th><th>Abweichung</th></tr>
-     ${months.map((x,i)=>`<tr><td>${MONATE[i]}</td><td>${eur(x.e)}</td><td>${eur(x.o)}</td><td>${eur(x.s)}</td><td>${eur(x.u)}</td><td>${eur(bud)}</td><td>${eur(x.abw)}</td></tr>`).join('')}
-     <tr class="sum"><td>Ø je erfasstem Monat</td><td>${eur(avg('e'))}</td><td>${eur(avg('o'))}</td><td>${eur(avg('s'))}</td><td>${eur(avg('u'))}</td><td>${eur(bud)}</td><td>${eur(avg('abw'))}</td></tr>
-   </table></div></div>`;
+     ${months.map((x,i)=>`<tr><td>${MK[i]}</td><td>${eur(x.e)}</td><td>${eur(x.o)}</td><td>${eur(x.s)}</td><td>${eur(x.u)}</td><td>${eur(bud)}</td><td>${eur(x.abw)}</td></tr>`).join('')}
+     <tr class="sum"><td>Ø</td><td>${eur(avg('e'))}</td><td>${eur(avg('o'))}</td><td>${eur(avg('s'))}</td><td>${eur(avg('u'))}</td><td>${eur(bud)}</td><td>${eur(avg('abw'))}</td></tr>
+   </table></div><div class="note">Ø = Durchschnitt je Monat mit Buchungen. Seitlich wischen für Überschuss, Budget und Abweichung.</div></div>`;
   $('#dM').onchange=e=>{dSel.m=+e.target.value;renderDash();};
   $('#dY').onchange=e=>{dSel.y=+e.target.value;renderDash();};
 }
@@ -494,7 +548,7 @@ function renderDash(){
 /* ---------- Pager / Navigation ---------- */
 const pager=$('#pager');
 function setTab(i){$('#tab0').classList.toggle('on',i===0);$('#tab1').classList.toggle('on',i===1);
-  const n=new Date();$('#ttl').textContent=i===0?'Haushaltsplan':'Dashboard';
+  const n=new Date();$('#ttl').textContent=i===0?'Geldwerk':'Dashboard';
   $('#ttlsub').textContent=i===0?`${MONATE[n.getMonth()]} ${n.getFullYear()}`:'Alle Grafiken und Zahlen';}
 pager.addEventListener('scroll',()=>{const i=Math.round(pager.scrollLeft/pager.clientWidth);if(i!==pager._i){pager._i=i;setTab(i);}},{passive:true});
 $('#tab0').onclick=()=>pager.scrollTo({left:0,behavior:'smooth'});
@@ -517,65 +571,124 @@ function makeView(title,{left='‹ Zurück',right=null,up=false}={}){
   return v;}
 function openView(k){({buchungen:viewBuchungen,monat:viewMonat,jahr:viewJahr,kategorien:viewKategorien,budgets:viewBudgets,anleitung:viewAnleitung,daten:viewDaten})[k]();}
 
-/* ---------- Eingabe-Formular ---------- */
-function openForm(b=null){
-  const edit=!!b;
-  const v=makeView(edit?'Buchung bearbeiten':'Neue Buchung',{left:'Abbrechen',right:'Speichern',up:true});
-  let ein=edit?b.art==='Einnahme':false;
-  let typ=edit?(b.typ||''):'Variabel';
+/* ---------- Daueraufträge ---------- */
+const ZYKLEN={w:'Wöchentlich',m:'Monatlich',q:'Quartalsweise',y:'Jährlich'};
+function occDate(r,n){ // Datum der n-ten Ausführung (n = 0, 1, 2 …)
+  if(r.cycle==='w')return addDays(r.start,7*n);
+  const[y,m,d]=r.start.split('-').map(Number);const step=r.cycle==='q'?3:r.cycle==='y'?12:1;
+  const mm=m-1+step*n,yy=y+Math.floor(mm/12),mo=mm%12+1;const last=new Date(Date.UTC(yy,mo,0)).getUTCDate();
+  return iso(yy,mo,Math.min(d,last));}
+function countUpTo(r,t){let n=0;while(n<5000&&occDate(r,n)<=t&&!(r.end&&occDate(r,n)>r.end))n++;return n;}
+function nextOcc(r){const d=occDate(r,r.n||0);return (r.end&&d>r.end)?'':d;}
+function runRecurring(){ // legt alle fälligen Buchungen bis heute an
+  const t=todayISO();let made=0;
+  for(const r of S.recurring||[]){let n=r.n||0;
+    while(n<5000){const d=occDate(r,n);if(d>t||(r.end&&d>r.end))break;
+      S.bookings.push({id:uid(),ts:Date.now()+made,date:d,desc:r.desc,amount:r.amount,art:r.art,haupt:r.haupt,unter:r.unter,zahlung:r.zahlung,typ:r.typ,notiz:r.notiz,rid:r.id});
+      n++;made++;}
+    r.n=n;}
+  if(made)save();return made;}
+
+/* ---------- Eingabe-Formular ----------
+   openForm()                    neue Buchung (Startseite +)
+   openForm(null,{allowRec:true}) neue Buchung mit Regler "Dauerauftrag" (nur Einnahmen und Ausgaben → + Neu)
+   openForm(buchung)             Buchung bearbeiten
+   openForm(null,{rec:regel})    Dauerauftrag bearbeiten */
+function openForm(b=null,opts={}){
+  const edit=!!b,R0=opts.rec||null,src=b||R0;const allowRec=!!opts.allowRec||!!R0;let recOn=!!R0;
+  const rule=edit&&b.rid?(S.recurring||[]).find(r=>r.id===b.rid):null;
+  const v=makeView(R0?'Dauerauftrag bearbeiten':edit?'Buchung bearbeiten':'Neue Buchung',{left:'Abbrechen',right:'Speichern',up:true});
+  let ein=src?src.art==='Einnahme':false;
+  let typ=src?(src.typ||''):'Variabel';let cyc=R0?R0.cycle:'m';
   v.body.innerHTML=`
-    <div class="f-date"><input type="date" id="fDate" value="${edit?b.date:todayISO()}" aria-label="Datum"></div>
-    <div class="amount"><input id="fAmt" inputmode="decimal" placeholder="0,00" autocomplete="off" value="${edit?String(b.amount.toFixed(2)).replace('.',','):''}" aria-label="Betrag"><span>€</span></div>
+    ${rule?`<div class="infobox" style="margin-bottom:12px">↻ Diese Buchung stammt aus dem Dauerauftrag „${esc(rule.desc||rule.unter||rule.haupt)}“. Änderungen hier gelten nur für diese eine Buchung. <button class="link" id="fToRule" style="display:block;margin-top:6px">Dauerauftrag bearbeiten ›</button></div>`:''}
+    <div class="f-date" id="fDateWrap"><input type="date" id="fDate" value="${edit?b.date:todayISO()}" aria-label="Datum"></div>
+    <div class="amount"><input id="fAmt" inputmode="decimal" placeholder="0,00" autocomplete="off" value="${src?String(src.amount.toFixed(2)).replace('.',','):''}" aria-label="Betrag"><span>€</span></div>
     <div class="toggle ${ein?'ein':''}" id="fTog" role="switch"><div class="knob"></div><button type="button" class="b-aus">Ausgabe</button><button type="button" class="b-ein">Einnahme</button></div>
-    <label class="fl" for="fDesc">Beschreibung</label><input class="inp" id="fDesc" placeholder="z. B. Einkauf Supermarkt" value="${esc(edit?b.desc:'')}" autocomplete="off">
+    <label class="fl" for="fDesc">Beschreibung</label><input class="inp" id="fDesc" placeholder="z. B. Einkauf Supermarkt" value="${esc(src?src.desc:'')}" autocomplete="off">
     <label class="fl" for="fHaupt">Hauptkategorie</label><select class="inp" id="fHaupt"></select><div class="err" id="fHauptHint"></div>
     <label class="fl" for="fUnter">Unterkategorie</label><select class="inp" id="fUnter"></select><div class="err" id="fUnterHint"></div>
-    <label class="fl" for="fPay">Zahlungsmethode</label><select class="inp" id="fPay"><option value="">Bitte wählen</option>${S.pay.map(p=>`<option ${edit&&b.zahlung===p?'selected':''}>${esc(p)}</option>`).join('')}</select>
+    <label class="fl" for="fPay">Zahlungsmethode</label><select class="inp" id="fPay"><option value="">Bitte wählen</option>${S.pay.map(p=>`<option ${src&&src.zahlung===p?'selected':''}>${esc(p)}</option>`).join('')}</select>
     <div id="fTypWrap"><label class="fl">Ausgabenart</label><div class="seg" id="fTyp">${TYPEN.map(x=>`<button type="button" data-t="${x}">${x==='Spontan / einmalig'?'Spontan':x}</button>`).join('')}</div></div>
-    <label class="fl" for="fNote">Notizen</label><textarea class="inp" id="fNote" placeholder="optional">${esc(edit?b.notiz:'')}</textarea>
+    ${allowRec?`<div id="fRecWrap" ${R0?'style="display:none"':''}><label class="fl">Dauerauftrag</label>
+      <div class="toggle sm ${recOn?'ein':''}" id="fRecTog" role="switch"><div class="knob"></div><button type="button" class="b-aus">Nein</button><button type="button" class="b-ein">Ja</button></div></div>
+    <div class="recbox" id="fRecBox" ${recOn?'':'style="display:none"'}>
+      <label class="fl" for="fRecStart">Startdatum</label><input type="date" class="inp" id="fRecStart" value="${R0?R0.start:todayISO()}">
+      <label class="fl">Zyklus</label><div class="seg four" id="fCyc">${Object.entries(ZYKLEN).map(([k,n])=>`<button type="button" data-c="${k}">${n}</button>`).join('')}</div>
+      <label class="fl" for="fRecEnd">Enddatum (optional)</label><input type="date" class="inp" id="fRecEnd" value="${R0&&R0.end?R0.end:''}">
+      <div class="note" id="fRecInfo"></div></div>`:''}
+    <label class="fl" for="fNote">Notizen</label><textarea class="inp" id="fNote" placeholder="optional">${esc(src?src.notiz:'')}</textarea>
     <div class="err" id="fErr"></div>
     <button class="btn" id="fSave">Speichern</button>
-    ${edit?'<button class="btn danger" id="fDel">Buchung löschen</button>':''}`;
+    ${edit?'<button class="btn danger" id="fDel">Buchung löschen</button>':''}
+    ${R0?'<button class="btn danger" id="fRecDel">Dauerauftrag löschen</button><div class="note">Beim Löschen werden keine weiteren Buchungen angelegt. Bereits gebuchte Einträge bleiben erhalten.</div>':''}`;
   const H=v.querySelector('#fHaupt'),U=v.querySelector('#fUnter'),T=v.querySelector('#fTog'),P=v.querySelector('#fPay');
   function fillHaupt(sel){const list=S.cats.filter(c=>ein?c.typ==='Einnahme':c.typ!=='Einnahme');
     H.innerHTML='<option value="">Bitte wählen</option>'+list.map(c=>`<option ${c.name===sel?'selected':''}>${esc(c.name)}</option>`).join('');
-    v.querySelector('#fHauptHint').textContent=(edit&&b.haupt&&sel===b.haupt&&!catByName(b.haupt))?`Kategorie eintragen – „${b.haupt}“ gibt es nicht mehr.`:'';
-    fillUnter(edit&&sel===b.haupt?b.unter:'');}
+    v.querySelector('#fHauptHint').textContent=(src&&src.haupt&&sel===src.haupt&&!catByName(src.haupt))?`Kategorie eintragen – „${src.haupt}“ gibt es nicht mehr.`:'';
+    fillUnter(src&&sel===src.haupt?src.unter:'');}
   function fillUnter(sel){const c=catByName(H.value);if(!c){U.innerHTML='<option value="">Erst Hauptkategorie wählen</option>';U.disabled=true;return;}
     U.disabled=false;U.innerHTML='<option value="">Bitte wählen</option>'+c.subs.map(s=>`<option ${s===sel?'selected':''}>${esc(s)}</option>`).join('');
     v.querySelector('#fUnterHint').textContent=(sel&&!c.subs.includes(sel))?`Unterkategorie eintragen – „${sel}“ gibt es nicht mehr.`:'';}
   function setTyp(t){typ=t;v.querySelectorAll('#fTyp button').forEach(x=>x.classList.toggle('on',x.dataset.t===t));}
   function setEin(on){ein=on;T.classList.toggle('ein',on);v.querySelector('#fTypWrap').style.display=on?'none':'';
     const cur=catByName(H.value);fillHaupt(cur&&((cur.typ==='Einnahme')===on)?H.value:'');}
-  fillHaupt(edit?b.haupt:'');setTyp(typ);v.querySelector('#fTypWrap').style.display=ein?'none':'';
-  T.querySelector('.b-aus').onclick=()=>setEin(false);T.querySelector('.b-ein').onclick=()=>setEin(true);
-  // Wischen über den Schieberegler
-  let sx=null;T.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
-  T.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>25)setEin(dx>0);sx=null;});
+  fillHaupt(src?src.haupt:'');setTyp(typ);v.querySelector('#fTypWrap').style.display=ein?'none':'';
+  function swipeToggle(el,fn){let sx=null;el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+    el.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>25)fn(dx>0);sx=null;});}
+  T.querySelector('.b-aus').onclick=()=>setEin(false);T.querySelector('.b-ein').onclick=()=>setEin(true);swipeToggle(T,setEin);
   H.onchange=()=>{v.querySelector('#fHauptHint').textContent='';fillUnter('');};
   U.onchange=()=>{ // Zahlungsmethode & Ausgabenart von der letzten gleichen Buchung vorschlagen
-    if(edit)return;const last=[...S.bookings].reverse().find(x=>x.haupt===H.value&&x.unter===U.value);
+    if(src)return;const last=[...S.bookings].reverse().find(x=>x.haupt===H.value&&x.unter===U.value);
     if(last){if(!P.value&&last.zahlung)P.value=last.zahlung;if(last.typ&&!ein)setTyp(last.typ);}};
   v.querySelectorAll('#fTyp button').forEach(x=>x.onclick=()=>setTyp(typ===x.dataset.t?'':x.dataset.t));
-  const amt=v.querySelector('#fAmt');if(!edit)amt.focus();
+  // Dauerauftrag
+  const recInfo=()=>{const el=v.querySelector('#fRecInfo');if(!el)return;const st=v.querySelector('#fRecStart').value;if(!st){el.textContent='';return;}
+    const end=v.querySelector('#fRecEnd').value||'';const tmp={start:st,cycle:cyc,end};
+    if(R0){const changed=st!==R0.start||cyc!==R0.cycle;const n=changed?countUpTo(tmp,todayISO()):(R0.n||0);const nx=occDate(tmp,n);
+      el.innerHTML=(end&&nx>end)?'Nach dem Enddatum werden keine weiteren Buchungen angelegt.':`Nächste Buchung: <b>${fmtDate(nx)}</b>. Änderungen gelten ab der nächsten Buchung.`;return;}
+    const due=countUpTo(tmp,todayISO());const nx=occDate(tmp,due);
+    el.innerHTML=`${ZYKLEN[cyc]} ab ${fmtDate(st)}.`+(due?` <b>${due} Buchung${due===1?'':'en'}</b> bis heute ${due===1?'wird':'werden'} sofort angelegt.`:'')+((end&&nx>end)?'':` Nächste: <b>${fmtDate(nx)}</b>.`)+' Danach bucht die App automatisch beim Öffnen.';};
+  function setCyc(c){cyc=c;v.querySelectorAll('#fCyc button').forEach(x=>x.classList.toggle('on',x.dataset.c===c));recInfo();}
+  function setRec(on){recOn=on;const tg=v.querySelector('#fRecTog');tg.classList.toggle('ein',on);
+    v.querySelector('#fRecBox').style.display=on?'':'none';v.querySelector('#fDateWrap').style.display=on?'none':'';
+    if(on){v.querySelector('#fRecStart').value=v.querySelector('#fDate').value||todayISO();recInfo();}}
+  if(allowRec){const tg=v.querySelector('#fRecTog');tg.querySelector('.b-aus').onclick=()=>setRec(false);tg.querySelector('.b-ein').onclick=()=>setRec(true);swipeToggle(tg,setRec);
+    v.querySelectorAll('#fCyc button').forEach(x=>x.onclick=()=>setCyc(x.dataset.c));setCyc(cyc);
+    v.querySelector('#fRecStart').onchange=recInfo;v.querySelector('#fRecEnd').onchange=recInfo;
+    if(R0)v.querySelector('#fDateWrap').style.display='none';}
+  if(rule)v.querySelector('#fToRule').onclick=()=>{v.close();setTimeout(()=>openForm(null,{rec:rule}),150);};
+  const amt=v.querySelector('#fAmt');if(!src)amt.focus();
   function doSave(){
     const a=parseAmount(amt.value);const err=v.querySelector('#fErr');
     if(!(a>0)){err.textContent='Bitte einen Betrag größer 0 eintragen.';amt.focus();return;}
     const c=catByName(H.value);if(!H.value||!c){err.textContent='Bitte eine Hauptkategorie wählen.';return;}
     if(c.subs.length&&!U.value){err.textContent='Bitte eine Unterkategorie wählen.';return;}
-    const date=v.querySelector('#fDate').value||todayISO();
-    const rec={id:edit?b.id:uid(),ts:edit?b.ts:Date.now(),date,desc:v.querySelector('#fDesc').value.trim(),amount:Math.round(a*100)/100,
+    const fields={desc:v.querySelector('#fDesc').value.trim(),amount:Math.round(a*100)/100,
       art:ein?'Einnahme':(c.typ==='Sparen'?'Sparen':'Ausgabe'),
       haupt:H.value,unter:U.value,zahlung:P.value,typ:ein?'':typ,notiz:v.querySelector('#fNote').value.trim()};
+    if(recOn){
+      const start=v.querySelector('#fRecStart').value,end=v.querySelector('#fRecEnd').value||'';
+      if(!start){err.textContent='Bitte ein Startdatum wählen.';return;}
+      if(end&&end<start){err.textContent='Das Enddatum liegt vor dem Startdatum.';return;}
+      const r={id:R0?R0.id:uid(),...fields,start,cycle:cyc,end};
+      if(R0){r.n=(start!==R0.start||cyc!==R0.cycle)?countUpTo(r,todayISO()):(R0.n||0);
+        const i=S.recurring.findIndex(x=>x.id===R0.id);S.recurring[i]=r;}
+      else{r.n=0;S.recurring.push(r);}
+      const made=runRecurring();save();refresh();v.close();
+      toast(R0?'Dauerauftrag gespeichert':`Dauerauftrag angelegt${made?` – ${made} Buchung${made===1?'':'en'} gebucht`:''}`);return;}
+    const date=v.querySelector('#fDate').value||todayISO();
+    const rec={id:edit?b.id:uid(),ts:edit?b.ts:Date.now(),date,...fields};if(edit&&b.rid)rec.rid=b.rid;
     if(edit){const i=S.bookings.findIndex(x=>x.id===b.id);S.bookings[i]=rec;}else S.bookings.push(rec);
     save();refresh();v.close();toast(edit?'Änderung gespeichert':(ein?'Einnahme gespeichert':'Ausgabe gespeichert'));}
   v.querySelector('#fSave').onclick=doSave;v.rbtn.onclick=doSave;
   if(edit)v.querySelector('#fDel').onclick=()=>{if(confirm('Diese Buchung wirklich löschen?')){S.bookings=S.bookings.filter(x=>x.id!==b.id);save();refresh();v.close();toast('Buchung gelöscht');}};
+  if(R0)v.querySelector('#fRecDel').onclick=()=>{if(confirm(`Dauerauftrag „${R0.desc||R0.unter||R0.haupt}“ löschen?\n\nEs werden keine weiteren Buchungen angelegt. Bereits gebuchte Einträge bleiben erhalten.`)){S.recurring=S.recurring.filter(x=>x.id!==R0.id);save();refresh();v.close();toast('Dauerauftrag gelöscht');}};
 }
 
 /* ---------- Einnahmen und Ausgaben (Liste) ---------- */
 function viewBuchungen(opts={}){
-  const v=makeView('Einnahmen und Ausgaben',{right:'+ Neu'});v.rbtn.onclick=()=>openForm();
+  const v=makeView('Einnahmen und Ausgaben',{right:'+ Neu'});v.rbtn.onclick=()=>openForm(null,{allowRec:true});let recOpen=false;
   const n=new Date();let fy=n.getFullYear(),fm=n.getMonth()+1,q='',onlyUnc=!!opts.onlyUnc;
   v._refresh=()=>{
     const ys=yearsList();const uncAll=uncategorized();if(!uncAll.length)onlyUnc=false;
@@ -588,6 +701,11 @@ function viewBuchungen(opts={}){
     if(last)html+='</div>';
     v.body.innerHTML=`
       ${uncAll.length?`<button class="banner ${onlyUnc?'info':''}" id="lU" style="margin-top:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span>${onlyUnc?'Es werden nur Buchungen ohne Kategorie angezeigt. Tippe eine Buchung an und wähle Haupt- und Unterkategorie.':`${uncAll.length} Buchung${uncAll.length===1?'':'en'} ohne gültige Kategorie`}</span>${onlyUnc?'Alle ✕':'Anzeigen ›'}</button><div style="height:12px"></div>`:''}
+      ${onlyUnc?'':`<details class="cat" id="lRec" ${recOpen?'open':''}><summary><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E6DB4" stroke-width="2.2" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg><span class="n">Daueraufträge</span><span class="pill">${(S.recurring||[]).length}</span><svg class="chev" width="10" height="16" viewBox="0 0 10 16"><path d="M2 2l6 6-6 6" fill="none" stroke="#0B2A4A" stroke-width="2"/></svg></summary>
+        ${(S.recurring||[]).length?[...S.recurring].sort((a,b)=>(nextOcc(a)||'9').localeCompare(nextOcc(b)||'9')).map(r=>{const nx=nextOcc(r);const warn=!catByName(r.haupt);
+          return `<button class="recrow" data-rid="${r.id}"><div class="bi ${r.art==='Einnahme'?'e':r.art==='Sparen'?'s':'a'}">${ICON[r.art==='Einnahme'?'e':r.art==='Sparen'?'s':'a']}</div><div class="m"><div class="d">${esc(r.desc||r.unter||r.haupt)}</div><div class="c ${warn?'neg':''}">${warn?'⚠ Kategorie eintragen':`${ZYKLEN[r.cycle]} · ${nx?'nächste '+fmtDate(nx):'beendet'}`}</div></div><div class="a">${eur((r.art==='Einnahme'?1:-1)*r.amount)}</div></button>`;}).join(''):
+          '<div class="subrow muted" style="font-size:14px;line-height:1.45"><span>Noch keine Daueraufträge. Tippe oben rechts auf <b>+ Neu</b> und schiebe den Regler <b>„Dauerauftrag“</b> auf <b>Ja</b>.</span></div>'}
+      </details>`}
       <div class="selrow" ${onlyUnc?'style="display:none"':''}><select class="sel" id="lM"><option value="all">Alle Monate</option>${MONATE.map((x,i)=>`<option value="${i+1}" ${fm===i+1?'selected':''}>${x}</option>`).join('')}</select>
       <select class="sel" id="lY"><option value="all" ${fy==='all'?'selected':''}>Alle Jahre</option>${ys.map(y=>`<option ${y===fy?'selected':''}>${y}</option>`).join('')}</select></div>
       <input class="search" id="lQ" type="search" placeholder="Suchen (Beschreibung, Kategorie, Notiz …)" value="${esc(q)}">
@@ -595,6 +713,8 @@ function viewBuchungen(opts={}){
       <div class="note">${list.length} Buchung${list.length===1?'':'en'} · Tippen zum Bearbeiten oder Löschen</div>
       ${html||'<div class="empty">Keine Buchungen in diesem Zeitraum.</div>'}`;
     const lU=v.body.querySelector('#lU');if(lU)lU.onclick=()=>{onlyUnc=!onlyUnc;v._refresh();};
+    const lR=v.body.querySelector('#lRec');if(lR){lR.addEventListener('toggle',()=>{recOpen=lR.open;});
+      lR.querySelectorAll('.recrow').forEach(el=>el.onclick=()=>openForm(null,{rec:S.recurring.find(r=>r.id===el.dataset.rid)}));}
     v.body.querySelector('#lM').onchange=ev=>{fm=ev.target.value==='all'?'all':+ev.target.value;v._refresh();};
     v.body.querySelector('#lY').onchange=ev=>{fy=ev.target.value==='all'?'all':+ev.target.value;v._refresh();};
     const qi=v.body.querySelector('#lQ');qi.oninput=()=>{q=qi.value;clearTimeout(qi._t);qi._t=setTimeout(()=>{v._refresh();const n2=v.body.querySelector('#lQ');n2.focus();n2.setSelectionRange(q.length,q.length);},250);};
@@ -628,7 +748,7 @@ function viewMonat(){
     const rowArr=(n,d,cls='')=>{const s=d.reduce((a,x)=>a+x,0);return `<tr class="${cls}"><td>${esc(n)}</td>${d.map(x=>`<td>${eur(x)}</td>`).join('')}<td>${eur(s)}</td><td>${eur(s/nM)}</td></tr>`;};
     v.body.innerHTML=`
       <div class="selrow"><select class="sel" id="mY">${yearsList().map(x=>`<option ${x===y?'selected':''}>${x}</option>`).join('')}</select><span class="muted small">Erfasste Monate: <b class="num">${erfassteMonate(y)}</b> (Basis für Ø)</span></div>
-      <div class="sec"><h2>Monatsergebnis</h2><div class="tw"><table>${head}
+      <div class="sec"><h2>Monatsergebnis</h2><div class="tw" data-ms><table>${head}
         ${line('Einnahmen','e')}${line('Ausgaben (Konsum)','o')}${line('Gespart (Rücklagen)','s')}
         ${line('Überschuss','u')}${line('Frei verfügbar','fr')}
         <tr><td>Sparquote</td>${R.map(r=>`<td>${pct(r.q)}</td>`).join('')}<td>${pct(qY)}</td><td>${pct(qY)}</td></tr>
@@ -637,9 +757,9 @@ function viewMonat(){
         <tr><td>Kontostand Monatsende</td>${R.map(r=>`<td>${eur(r.ks)}</td>`).join('')}<td></td><td></td></tr>
       </table></div><div class="note">Tabelle seitlich wischen für alle Monate.</div></div>
       <div class="sec"><h2>Monate im Vergleich</h2>${groupedBars(MK.map(x=>x[0]),[{name:'Einnahmen',color:C1,data:R.map(r=>r.e)},{name:'Ausgaben',color:C2,data:R.map(r=>r.o)},{name:'Gespart',color:C3,data:R.map(r=>r.s)}],{line:bud})}</div>
-      <div class="sec"><h2>Ausgaben nach Art</h2><div class="tw"><table><tr><th>Ausgabenart</th>${MK.map(m=>`<th>${m}</th>`).join('')}<th>Summe</th><th>Ø je Monat</th></tr>
+      <div class="sec"><h2>Ausgaben nach Art</h2><div class="tw" data-ms><table><tr><th>Ausgabenart</th>${MK.map(m=>`<th>${m}</th>`).join('')}<th>Summe</th><th>Ø je Monat</th></tr>
         ${typRows.map(r=>rowArr(r.n,r.d)).join('')}</table></div></div>
-      <div class="sec"><h2>Ausgaben und Sparen nach Hauptkategorie</h2><div class="tw"><table>
+      <div class="sec"><h2>Ausgaben und Sparen nach Hauptkategorie</h2><div class="tw" data-ms><table>
         <tr><th>Hauptkategorie</th>${MK.map(m=>`<th>${m}</th>`).join('')}<th>Summe</th><th>Ø je Monat</th><th>Budget / Monat</th><th>Budget lfd. Jahr</th><th>Abweichung</th></tr>
         ${catRows.map(r=>`<tr><td>${esc(r.c.name)}</td>${r.d.map(x=>`<td>${eur(x)}</td>`).join('')}<td>${eur(r.sum)}</td><td>${eur(r.sum/nM)}</td><td>${eur(+r.c.budget||0)}</td><td>${eur(r.bj)}</td><td>${eur(r.abw)}</td></tr>`).join('')}
         <tr><td class="lbl">Ohne gültige Kategorie</td>${ohne.map(x=>`<td>${eur(x)}</td>`).join('')}<td>${eur(ohne.reduce((a,x)=>a+x,0))}</td><td></td><td></td><td></td><td></td></tr>
@@ -647,11 +767,15 @@ function viewMonat(){
       </table></div><div class="note">„Ohne gültige Kategorie“ sollte immer 0 zeigen. Sonst wurde eine Kategorie gelöscht oder umbenannt.</div></div>
       <div class="sec"><h2>Detailansicht Unterkategorien</h2>
         <select class="sel" id="mD" style="margin-bottom:10px;max-width:100%">${S.cats.map(c=>`<option ${c.name===det?'selected':''}>${esc(c.name)}</option>`).join('')}</select>
-        <div class="tw"><table><tr><th>Unterkategorie</th>${MK.map(m=>`<th>${m}</th>`).join('')}<th>Summe</th><th>Ø je Monat</th></tr>
+        <div class="tw" data-ms><table><tr><th>Unterkategorie</th>${MK.map(m=>`<th>${m}</th>`).join('')}<th>Summe</th><th>Ø je Monat</th></tr>
         ${subRows.map(r=>rowArr(r.n,r.d)).join('')}${dc?rowArr('Ohne / unbekannt',subOhne):''}
         ${dc?rowArr('Summe',R.map((_,i)=>subRows.reduce((a,r)=>a+r.d[i],0)+subOhne[i]),'sum'):''}</table></div></div>`;
     v.body.querySelector('#mY').onchange=e=>{y=+e.target.value;v._refresh();};
     v.body.querySelector('#mD').onchange=e=>{det=e.target.value;v._refresh();};
+    // aktuellen Monat rechts zeigen (Vormonat links daneben) – seitlich verschieben bleibt möglich
+    const now=new Date();const cm=y===now.getFullYear()?now.getMonth()+1:(y<now.getFullYear()?12:0);
+    if(cm)requestAnimationFrame(()=>v.body.querySelectorAll('.tw[data-ms]').forEach(tw=>{const th=tw.querySelectorAll('tr:first-child th')[cm];if(!th)return;
+      tw.scrollLeft=Math.max(0,th.getBoundingClientRect().right-tw.getBoundingClientRect().left+tw.scrollLeft-tw.clientWidth);}));
   };
   v._refresh();
 }
@@ -694,6 +818,46 @@ function viewJahr(){
   v._refresh();
 }
 
+/* ---------- Verschieben per langem Drücken ----------
+   container: Elternelement, itemSel: verschiebbare Kinder, handleSel: wo man drücken muss,
+   onMove(von,nach): neue Reihenfolge übernehmen */
+function sortable(container,itemSel,handleSel,onMove){
+  let timer=null,drag=null,items=[],rects=[],from=-1,to=-1,sy=0,sx=0,y0=0,st0=0,mode='';
+  const scroller=container.closest('.vbody');
+  const kids=()=>[...container.children].filter(e=>e.matches(itemSel));
+  const clearMarks=()=>items.forEach(e=>e.classList.remove('drop-before','drop-after'));
+  function begin(el){items=kids();from=items.indexOf(el);if(from<0)return;to=from;drag=el;
+    rects=items.map(e=>e.getBoundingClientRect());st0=scroller?scroller.scrollTop:0;
+    el.classList.add('dragging');document.body.classList.add('noselect');
+    if(navigator.vibrate)try{navigator.vibrate(15);}catch(e){}}
+  function move(y){if(!drag)return;
+    if(scroller){const r=scroller.getBoundingClientRect();if(y<r.top+60)scroller.scrollTop-=10;else if(y>r.bottom-60)scroller.scrollTop+=10;}
+    const ds=(scroller?scroller.scrollTop:0)-st0;drag.style.transform=`translateY(${y-sy+ds}px)`;
+    const c=rects[from].top+rects[from].height/2+(y-sy)+ds;
+    const others=items.filter(e=>e!==drag),oR=rects.filter((_,i)=>i!==from);
+    let k=0;oR.forEach(r=>{if(r.top+r.height/2<c)k++;});to=k;clearMarks();
+    if(to!==from){if(to<others.length)others[to].classList.add('drop-before');else others[others.length-1].classList.add('drop-after');}}
+  function end(){clearTimeout(timer);timer=null;if(!drag)return;
+    drag.classList.remove('dragging');drag.style.transform='';clearMarks();document.body.classList.remove('noselect');
+    container._jd=Date.now();const f=from,t=to;drag=null;if(t!==f&&t>=0)onMove(f,t);}
+  function start(e,x,y){const h=e.target.closest(handleSel);if(!h||!container.contains(h))return;
+    const el=h.closest(itemSel);if(!el||el.parentElement!==container)return;if(e.target.closest('button,input,select,textarea'))return;
+    sx=x;sy=y;clearTimeout(timer);timer=setTimeout(()=>begin(el),450);}
+  container.addEventListener('touchstart',e=>{mode='t';start(e,e.touches[0].clientX,e.touches[0].clientY);},{passive:true});
+  container.addEventListener('touchmove',e=>{const t=e.touches[0];
+    if(drag){e.preventDefault();e.stopPropagation();move(t.clientY);}
+    else if(timer&&(Math.abs(t.clientX-sx)>8||Math.abs(t.clientY-sy)>8)){clearTimeout(timer);timer=null;}},{passive:false});
+  container.addEventListener('touchend',e=>{if(drag)e.preventDefault();end();});
+  container.addEventListener('touchcancel',end);
+  container.addEventListener('contextmenu',e=>{if(timer||drag)e.preventDefault();});
+  container.addEventListener('mousedown',e=>{if(mode==='t'||e.button!==0)return;start(e,e.clientX,e.clientY);
+    const mm=ev=>{if(drag)move(ev.clientY);else if(timer&&(Math.abs(ev.clientX-sx)>8||Math.abs(ev.clientY-sy)>8)){clearTimeout(timer);timer=null;}};
+    const mu=()=>{window.removeEventListener('mousemove',mm);window.removeEventListener('mouseup',mu);end();};
+    window.addEventListener('mousemove',mm);window.addEventListener('mouseup',mu);});
+  container.addEventListener('click',e=>{if(Date.now()-(container._jd||0)<450){e.preventDefault();e.stopPropagation();}},true);
+}
+function moveItem(arr,f,t){const[x]=arr.splice(f,1);arr.splice(t,0,x);}
+
 /* ---------- Kategorien ---------- */
 const PEN='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></svg>';
 const BIN='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>';
@@ -703,18 +867,20 @@ function viewKategorien(){
     const usedMain=n=>S.bookings.filter(b=>b.haupt===n).length;
     const usedSub=(n,sub)=>S.bookings.filter(b=>b.haupt===n&&b.unter===sub).length;
     const unc=uncategorized().length;
-    v.body.innerHTML=`<div class="infobox">Tippe auf eine Hauptkategorie, um sie zu öffnen. Mit <b>✎</b> benennst du um, mit <b>🗑</b> löschst du. Budgets legst du unter <b>Budgets</b> fest.</div>
+    const pend=S.cats.filter(c=>c.choice).length;
+    v.body.innerHTML=`<div class="infobox">Tippe auf eine Hauptkategorie, um sie zu öffnen. Mit <b>✎</b> benennst du um, mit <b>🗑</b> löschst du. <b>Verschieben:</b> lange auf eine Kategorie tippen, halten und nach oben oder unten ziehen. Budgets legst du unter <b>Budgets</b> fest.</div>
+      ${pend?`<div class="banner info" style="margin-top:12px"><span>Bitte wähle bei ${pend===1?'der blau umrandeten Kategorie':'den blau umrandeten Kategorien'} einmalig die passende Variante. Die Unterkategorien bleiben gleich.</span></div>`:''}
       ${unc?`<button class="banner" id="kU"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span>${unc} Buchung${unc===1?' braucht':'en brauchen'} eine neue Kategorie</span>Zuordnen ›</button>`:''}
-      <div class="sec" style="margin-top:16px"><h2>Haupt- und Unterkategorien</h2>
-      ${S.cats.map((c,i)=>`<details class="cat" data-i="${i}" ${open.has(c.name)?'open':''}><summary><span class="n">${esc(c.name)}</span><span class="pill">${c.typ}</span><svg class="chev" width="10" height="16" viewBox="0 0 10 16"><path d="M2 2l6 6-6 6" fill="none" stroke="#0B2A4A" stroke-width="2"/></svg></summary>
+      <div class="sec" style="margin-top:16px" id="catList"><h2>Haupt- und Unterkategorien</h2>
+      ${S.cats.map((c,i)=>`<details class="cat ${c.choice?'pending':''}" data-i="${i}" ${open.has(c.name)?'open':''}><summary><span class="grip"><svg width="12" height="18" viewBox="0 0 12 18" fill="#AEB6C2"><circle cx="3" cy="3" r="1.6"/><circle cx="9" cy="3" r="1.6"/><circle cx="3" cy="9" r="1.6"/><circle cx="9" cy="9" r="1.6"/><circle cx="3" cy="15" r="1.6"/><circle cx="9" cy="15" r="1.6"/></svg></span>${c.choice?`<div class="choice"><span class="q">Einmalig auswählen:</span><div class="bs">${c.choice.map(o=>`<button type="button" data-choose="${esc(o)}">${esc(o)}</button>`).join('')}</div></div>`:`<span class="n">${esc(c.name)}</span><span class="pill">${c.typ}</span><svg class="chev" width="10" height="16" viewBox="0 0 10 16"><path d="M2 2l6 6-6 6" fill="none" stroke="#0B2A4A" stroke-width="2"/></svg>`}</summary>
         <div class="catact" style="border-top:1px solid var(--line);background:var(--ice)"><button data-ren>${PEN} Umbenennen</button>
           <select data-typ style="flex:1;border:1px solid var(--line);border-radius:8px;padding:8px;background:#fff;font-size:13.5px;font-weight:600;color:var(--navy)">${['Ausgabe','Einnahme','Sparen'].map(t=>`<option ${t===c.typ?'selected':''} value="${t}">Typ: ${t}</option>`).join('')}</select>
           <button class="del" data-del>${BIN} Löschen</button></div>
-        ${c.subs.map((s,j)=>`<div class="subrow"><span>${esc(s)}</span><button class="x" data-ren-sub="${j}" aria-label="Umbenennen">${PEN}</button><button class="x" data-del-sub="${j}" aria-label="Löschen">${BIN}</button></div>`).join('')||'<div class="subrow muted"><span>Noch keine Unterkategorien</span></div>'}
+        ${c.subs.map((s,j)=>`<div class="subrow" data-j="${j}"><span class="grip"><svg width="12" height="18" viewBox="0 0 12 18" fill="#AEB6C2"><circle cx="3" cy="3" r="1.6"/><circle cx="9" cy="3" r="1.6"/><circle cx="3" cy="9" r="1.6"/><circle cx="9" cy="9" r="1.6"/><circle cx="3" cy="15" r="1.6"/><circle cx="9" cy="15" r="1.6"/></svg></span><span>${esc(s)}</span><button class="x" data-ren-sub="${j}" aria-label="Umbenennen">${PEN}</button><button class="x" data-del-sub="${j}" aria-label="Löschen">${BIN}</button></div>`).join('')||'<div class="subrow muted"><span>Noch keine Unterkategorien</span></div>'}
         <div class="addrow"><input placeholder="Neue Unterkategorie" data-new-sub><button data-add-sub>Hinzufügen</button></div></details>`).join('')}
       <div class="card" style="margin-top:4px"><div class="addrow" style="border-top:0;border-radius:12px"><input id="newCat" placeholder="Neue Hauptkategorie"><select id="newTyp"><option>Ausgabe</option><option>Einnahme</option><option>Sparen</option></select><button id="addCat">+</button></div></div></div>
-      <div class="sec"><h2>Zahlungsmethoden</h2><div class="card">
-        ${S.pay.map((p,i)=>`<div class="subrow" style="${i===0?'border-top:0':''}"><span>${esc(p)}</span><button class="x" data-ren-pay="${i}">${PEN}</button><button class="x" data-del-pay="${i}">${BIN}</button></div>`).join('')}
+      <div class="sec"><h2>Zahlungsmethoden</h2><div class="card" id="payList">
+        ${S.pay.map((p,i)=>`<div class="subrow" style="${i===0?'border-top:0':''}"><span class="grip"><svg width="12" height="18" viewBox="0 0 12 18" fill="#AEB6C2"><circle cx="3" cy="3" r="1.6"/><circle cx="9" cy="3" r="1.6"/><circle cx="3" cy="9" r="1.6"/><circle cx="9" cy="9" r="1.6"/><circle cx="3" cy="15" r="1.6"/><circle cx="9" cy="15" r="1.6"/></svg></span><span>${esc(p)}</span><button class="x" data-ren-pay="${i}">${PEN}</button><button class="x" data-del-pay="${i}">${BIN}</button></div>`).join('')}
         <div class="addrow"><input id="newPay" placeholder="Neue Zahlungsmethode"><button id="addPay">Hinzufügen</button></div></div></div>
       <div class="sec"><h2>Typ und Ausgabenart</h2><div class="card guide" style="padding:4px 12px">
         <p><b>Einnahme</b>: Geld, das hereinkommt (Gehalt, BAföG, Erstattungen …)</p>
@@ -730,18 +896,24 @@ function viewKategorien(){
         if(confirm(`Unterkategorie „${s}“ löschen?`+(u?`\n\n${u} Buchung${u===1?'':'en'} nutzen sie. Sie bleiben erhalten und werden unter „Einnahmen und Ausgaben“ mit „Unterkategorie eintragen“ markiert, bis du sie neu zuordnest.`:''))){c.subs.splice(+btn.dataset.delSub,1);save();refresh();toast('Unterkategorie gelöscht');}});
       d.querySelectorAll('[data-ren-sub]').forEach(btn=>btn.onclick=()=>{const old=c.subs[+btn.dataset.renSub];
         const n=(prompt(`Neuer Name für „${old}“:`,old)||'').trim();if(!n||n===old)return;if(c.subs.includes(n)){alert('Diese Unterkategorie gibt es schon.');return;}
-        c.subs[+btn.dataset.renSub]=n;let k=0;S.bookings.forEach(b=>{if(b.haupt===c.name&&b.unter===old){b.unter=n;k++;}});save();refresh();toast(k?`Umbenannt – ${k} Buchungen angepasst`:'Umbenannt');});
+        c.subs[+btn.dataset.renSub]=n;const k=renameSub(c.name,old,n);save();refresh();toast(k?`Umbenannt – ${k} Buchungen angepasst`:'Umbenannt');});
       const inp=d.querySelector('[data-new-sub]');const add=()=>{const n=inp.value.trim();if(!n)return;if(c.subs.includes(n)){toast('Gibt es schon');return;}c.subs.push(n);save();refresh();toast('Unterkategorie hinzugefügt');};
       d.querySelector('[data-add-sub]').onclick=add;inp.onkeydown=e=>{if(e.key==='Enter')add();};
       d.querySelector('[data-ren]').onclick=()=>{const n=(prompt('Neuer Name für „'+c.name+'“:',c.name)||'').trim();if(!n||n===c.name)return;
         if(catByName(n)){alert('Diesen Namen gibt es schon.');return;}
-        let k=0;S.bookings.forEach(b=>{if(b.haupt===c.name){b.haupt=n;k++;}});open.delete(c.name);open.add(n);c.name=n;save();refresh();toast(k?`Umbenannt – ${k} Buchungen angepasst`:'Umbenannt');};
+        const k=renameMain(c.name,n);open.delete(c.name);open.add(n);c.name=n;delete c.choice;save();refresh();toast(k?`Umbenannt – ${k} Buchungen angepasst`:'Umbenannt');};
       d.querySelector('[data-typ]').onchange=e=>{const nt=e.target.value;
         if(!confirm(`Typ von „${c.name}“ auf „${nt}“ ändern?\nBisherige Buchungen dieser Kategorie werden entsprechend umgestellt.`)){e.target.value=c.typ;return;}
-        c.typ=nt;S.bookings.forEach(b=>{if(b.haupt===c.name){b.art=nt;if(nt==='Einnahme')b.typ='';}});save();refresh();};
+        c.typ=nt;[...S.bookings,...(S.recurring||[])].forEach(b=>{if(b.haupt===c.name){b.art=nt;if(nt==='Einnahme')b.typ='';}});save();refresh();};
+      d.querySelectorAll('[data-choose]').forEach(btn=>btn.onclick=e=>{e.preventDefault();e.stopPropagation();const n=btn.dataset.choose;
+        if(n!==c.name&&catByName(n)){alert(`Es gibt schon eine Kategorie „${n}“.`);return;}
+        if(n!==c.name)renameMain(c.name,n);c.name=n;delete c.choice;save();refresh();toast(`„${n}“ ausgewählt`);});
+      sortable(d,'.subrow','.subrow',(f,t)=>{moveItem(c.subs,f,t);save();refresh();toast('Reihenfolge gespeichert');});
       d.querySelector('[data-del]').onclick=()=>{const u=usedMain(c.name);
         if(confirm(`Hauptkategorie „${c.name}“ mit allen Unterkategorien löschen?`+(u?`\n\n${u} Buchung${u===1?'':'en'} nutzen sie. Sie bleiben erhalten und werden unter „Einnahmen und Ausgaben“ mit „Kategorie eintragen“ markiert. Dort kannst du sie einer neuen Haupt- und Unterkategorie zuordnen.`:''))){open.delete(c.name);S.cats.splice(+d.dataset.i,1);save();refresh();toast('Hauptkategorie gelöscht');}};
     });
+    sortable(v.body.querySelector('#catList'),'details.cat','summary',(f,t)=>{moveItem(S.cats,f,t);save();refresh();toast('Reihenfolge gespeichert');});
+    sortable(v.body.querySelector('#payList'),'.subrow','.subrow',(f,t)=>{moveItem(S.pay,f,t);save();refresh();toast('Reihenfolge gespeichert');});
     v.body.querySelector('#addCat').onclick=()=>{const n=v.body.querySelector('#newCat').value.trim();if(!n)return;if(catByName(n)){toast('Gibt es schon');return;}
       S.cats.push({name:n,typ:v.body.querySelector('#newTyp').value,budget:0,subs:[]});open.add(n);save();refresh();toast('Hauptkategorie angelegt');};
     v.body.querySelectorAll('[data-del-pay]').forEach(b=>b.onclick=()=>{const p=S.pay[+b.dataset.delPay];if(confirm(`Zahlungsmethode „${p}“ löschen?\nBisherige Buchungen behalten ihren Eintrag.`)){S.pay.splice(+b.dataset.delPay,1);save();refresh();}});
@@ -806,13 +978,19 @@ function viewAnleitung(){
   <p>„Ausgabe“ sind echte Konsumausgaben. Überweisungen auf dein eigenes Spar- oder Tagesgeldkonto trägst du als Ausgabe in der Kategorie <b>„Sparen und Rücklagen“</b> ein. Die App verbucht sie automatisch als <b>Sparen</b>. Sparen zählt nicht als Ausgabe, mindert aber den Kontostand. Erstattungen (z. B. Nebenkosten) als Einnahme unter „Rückerstattungen“ buchen.</p>
   <h3>Fest, variabel, spontan</h3>
   <p><b>Fest</b> = regelmäßig geplant (Miete, Handy, Beiträge). <b>Variabel</b> = regelmäßig, aber schwankend (Supermarkt, Tanken, Mensa). <b>Spontan</b> = ungeplant (Geschenk, Fußballschuhe, Autoreparatur).</p>
+  <h3>Daueraufträge</h3>
+  <p>Für regelmäßige Zahlungen wie Miete, Handyvertrag oder Gehalt: Menü → <b>Einnahmen und Ausgaben</b> → oben rechts <b>+ Neu</b>. Den Regler <b>„Dauerauftrag“</b> auf <b>Ja</b> schieben, Startdatum und Zyklus wählen (wöchentlich, monatlich, quartalsweise oder jährlich), optional ein Enddatum, und speichern.</p>
+  <p>Die App bucht dann automatisch bei jedem Öffnen alle fälligen Termine. Liegt das Startdatum in der Vergangenheit, werden die bisherigen Termine sofort nachgebucht. Buchungen aus einem Dauerauftrag erkennst du am Zeichen <b>↻</b>.</p>
+  <p>Alle Daueraufträge stehen unter „Einnahmen und Ausgaben“ im aufklappbaren Bereich <b>„Daueraufträge“</b>. Antippen zum Ändern oder Löschen. Änderungen gelten ab der nächsten Buchung, bereits gebuchte Einträge bleiben erhalten.</p>
   <h3>Buchung ändern oder löschen</h3>
   <p>Menü → <b>Einnahmen und Ausgaben</b> (oder eine Buchung auf der Startseite) antippen. Dort kannst du sie bearbeiten oder löschen. Über Monat, Jahr und Suche findest du jede Buchung.</p>
   <h3>Budgets und Anfangsbudget</h3>
   <p>Menü → <b>Budgets</b>: Für jede Hauptkategorie ein Monatsbudget eintragen (0 € = kein Budget). Unter <b>Anfangsbudget</b> trägst du ein, wie viel Geld am Stichtag schon da ist, und unter „Stand am“ das Datum. Bist du im Minus (z. B. Dispo), tippe auf <b>„− Minus“</b> und trage den Betrag ein. Daraus berechnet die App den Kontostand.</p>
   <p>Das <b>verfügbare Budget</b> auf der Startseite ist die Summe aller Ausgabe-Budgets minus deine Ausgaben im Monat.</p>
   <h3>Kategorien</h3>
-  <p>Menü → <b>Kategorien</b>: Haupt- und Unterkategorien anlegen, mit <b>✎ umbenennen</b> und mit <b>🗑 löschen</b>. Beim Umbenennen werden alle bisherigen Buchungen automatisch angepasst.</p>
+  <p>Menü → <b>Kategorien</b>: Haupt- und Unterkategorien anlegen, mit <b>✎ umbenennen</b> und mit <b>🗑 löschen</b>. Beim Umbenennen werden alle bisherigen Buchungen und Daueraufträge automatisch angepasst.</p>
+  <p><b>Reihenfolge ändern:</b> Lange auf eine Haupt- oder Unterkategorie tippen, halten und nach oben oder unten ziehen. Eine blaue Linie zeigt, wo sie landet.</p>
+  <p><b>Varianten beim Start:</b> Bei zwei Kategorien wählst du einmalig: „Auto“ oder „Öffentlicher Nahverkehr“ sowie „Arbeit“ oder „Studium“. Die Hobby-Kategorien heißen zunächst „Hobby 1“ bis „Hobby 3“ – benenne sie einfach nach deinen Hobbys um.</p>
   <p><b>Kategorie gelöscht?</b> Die betroffenen Buchungen bleiben erhalten und sind rot mit <b>„Kategorie eintragen“</b> markiert. Auf der Startseite und unter „Einnahmen und Ausgaben“ erscheint ein Hinweis. Tippe ihn an, öffne die Buchung, wähle eine neue Haupt- und Unterkategorie und speichere.</p>
   <h3>Monats- und Jahresübersicht</h3>
   <p><b>Monatsübersicht:</b> alle Monate eines Jahres nebeneinander, Aufteilung nach fest/variabel/spontan, nach Hauptkategorie mit Budgetvergleich und eine Detailansicht der Unterkategorien. Tabellen seitlich wischen.</p>
@@ -870,8 +1048,8 @@ function viewDaten(){
         <details class="how" open><summary>Schritt für Schritt</summary><ol>
           <li>Tippe auf <b>„Komplette Sicherung speichern“</b>.</li>
           <li>Das Teilen-Menü öffnet sich. Tippe auf <b>„In Dateien sichern“</b> (eventuell etwas nach unten wischen).</li>
-          <li>Wähle <b>iCloud Drive</b> und am besten einen eigenen Ordner, z. B. „Haushaltsplan“. Den legst du beim ersten Mal über das Ordner-Symbol oben an.</li>
-          <li>Tippe oben rechts auf <b>„Sichern“</b>. Fertig – die Datei heißt z. B. <i>Haushaltsplan-Sicherung-${todayISO()}.json</i>.</li>
+          <li>Wähle <b>iCloud Drive</b> und am besten einen eigenen Ordner, z. B. „Geldwerk“. Den legst du beim ersten Mal über das Ordner-Symbol oben an.</li>
+          <li>Tippe oben rechts auf <b>„Sichern“</b>. Fertig – die Datei heißt z. B. <i>Geldwerk-Sicherung-${todayISO()}.json</i>.</li>
           <li>Ältere Sicherungen kannst du in der Dateien-App löschen. Behalte aber immer mindestens die neueste.</li></ol></details></div></div>
 
       <div class="sec"><h2>2. Sicherung wiederherstellen</h2><div class="card" style="padding:14px">
@@ -879,8 +1057,8 @@ function viewDaten(){
         <div class="note">Achtung: Ersetzt alle Daten auf diesem Gerät durch die gewählte Sicherung.</div>
         <details class="how"><summary>Schritt für Schritt</summary><ol>
           <li>Tippe auf <b>„Sicherung wiederherstellen“</b>.</li>
-          <li>Wähle <b>„Datei auswählen“</b> bzw. <b>„Durchsuchen“</b>, dann iCloud Drive → Ordner „Haushaltsplan“.</li>
-          <li>Tippe auf die <b>neueste</b> Datei <i>Haushaltsplan-Sicherung-….json</i>.</li>
+          <li>Wähle <b>„Datei auswählen“</b> bzw. <b>„Durchsuchen“</b>, dann iCloud Drive → Ordner „Geldwerk“.</li>
+          <li>Tippe auf die <b>neueste</b> Datei <i>Geldwerk-Sicherung-….json</i>.</li>
           <li>Bestätige die Rückfrage mit <b>OK</b>. Danach ist alles wieder da.</li></ol></details>
         <details class="how"><summary>Neues iPhone? So ziehst du um</summary><ol>
           <li>Auf dem <b>alten</b> iPhone eine aktuelle Sicherung speichern (Abschnitt 1).</li>
@@ -913,15 +1091,15 @@ function viewDaten(){
       <div class="sec"><h2>Alles zurücksetzen</h2><div class="card" style="padding:14px"><div class="note" style="margin-top:0">Löscht alle Buchungen und Einstellungen auf diesem Gerät. Vorher unbedingt sichern.</div><button class="btn danger" id="reset">Alle Daten löschen</button></div></div>`;
     const fi=v.body.querySelector('#fileIn');let mode='';
     const markDone=()=>{S.lastBackup=todayISO();save();refresh();toast('Sicherung erstellt');};
-    v.body.querySelector('#eJ').onclick=()=>download(`Haushaltsplan-Sicherung-${todayISO()}.json`,JSON.stringify({...S,lastBackup:todayISO()},null,1),'application/json',markDone);
-    v.body.querySelector('#eC').onclick=()=>download(`Haushaltsplan-Buchungen-${todayISO()}.csv`,toCSV(),'text/csv');
+    v.body.querySelector('#eJ').onclick=()=>download(`Geldwerk-Sicherung-${todayISO()}.json`,JSON.stringify({...S,lastBackup:todayISO()},null,1),'application/json',markDone);
+    v.body.querySelector('#eC').onclick=()=>download(`Geldwerk-Buchungen-${todayISO()}.csv`,toCSV(),'text/csv');
     v.body.querySelector('#iJ').onclick=()=>{mode='restore';fi.click();};
     v.body.querySelector('#iC').onclick=()=>{mode='merge';fi.click();};
     fi.onchange=async()=>{const f=fi.files[0];if(!f)return;const text=await f.text();fi.value='';
       try{
         if(mode==='restore'){const d=JSON.parse(text);if(!d.bookings||!d.cats)throw 0;
           if(!confirm(`Sicherung mit ${d.bookings.length} Buchungen wiederherstellen?\nDie aktuellen Daten werden ersetzt.`))return;
-          S=d;S.setupDone=true;save();refresh();toast('Sicherung wiederhergestellt');}
+          S=d;migrate();S.setupDone=true;runRecurring();save();refresh();toast('Sicherung wiederhergestellt');}
         else{let list;if(/^\s*[\[{]/.test(text)){const d=JSON.parse(text);list=(d.bookings||d).map(b=>({...b,id:b.id||uid()}));}else list=parseCSV(text);
           const n=mergeBookings(list);S.setupDone=true;save();refresh();toast(`${n} Buchungen importiert`);}
       }catch(e){alert('Die Datei konnte nicht gelesen werden. Bitte eine Sicherung (.json) oder eine CSV-Datei wählen.');}};
@@ -933,7 +1111,8 @@ function viewDaten(){
   v._refresh();
 }
 function loadExamples(){
-  EXAMPLES.forEach((r,i)=>S.bookings.push({id:'ex'+i,ts:i,date:r[0],desc:r[1],amount:+r[2],art:r[3],haupt:r[4],unter:r[5],zahlung:r[6],typ:r[7],notiz:r[8]||'Beispiel',ex:true}));
+  const mapCat=n=>{const c=S.cats.find(x=>x.orig===n);return c?c.name:n;};
+  EXAMPLES.forEach((r,i)=>S.bookings.push({id:'ex'+i,ts:i,date:r[0],desc:r[1],amount:+r[2],art:r[3],haupt:mapCat(r[4]),unter:r[5],zahlung:r[6],typ:r[7],notiz:r[8]||'Beispiel',ex:true}));
   if(!S.bookings.some(b=>!b.ex)&&!(+S.start.betrag)){S.start={betrag:2000,datum:EXAMPLES[0][0],ex:true};}
   S.setupDone=true;save();}
 
@@ -941,7 +1120,7 @@ function loadExamples(){
 function setup(){
   if(S.setupDone)return;
   const v=makeView('Willkommen',{left:'',up:true});v.querySelector('.hb.l').style.visibility='hidden';
-  v.body.innerHTML=`<div class="guide"><h3 style="margin-top:4px">Dein Haushaltsplan</h3>
+  v.body.innerHTML=`<div class="guide"><h3 style="margin-top:4px">Willkommen bei Geldwerk</h3>
     <p>Behalte Einnahmen und Ausgaben im Blick. Alle Daten bleiben <b>nur auf diesem iPhone</b>.</p>
     <p>Trage zum Start ein, wie viel Geld du heute auf dem Konto hast. Bist du im Minus (z. B. Dispo), wähle <b>„− Minus“</b> und trage den Betrag ein. Das kannst du später unter Menü → Budgets ändern.</p></div>
     <label class="fl" for="w1">Anfangsbudget (aktueller Kontostand)</label>
@@ -957,8 +1136,8 @@ function setup(){
 }
 
 /* ---------- Start ---------- */
-load();refresh();setTab(0);setup();
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
+load();const _made=runRecurring();refresh();setTab(0);setup();if(_made)setTimeout(()=>toast(`${_made} Dauerauftrag-Buchung${_made===1?'':'en'} gebucht`),400);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){const a=runRecurring();refresh();if(a)toast(`${a} Dauerauftrag-Buchung${a===1?'':'en'} gebucht`);}});
 if('serviceWorker' in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('sw.js').catch(()=>{});}
 </script>
 </body>
