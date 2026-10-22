@@ -14,7 +14,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{
-  --navy:#0B2A4A; --navy2:#16406B; --blue:#6F8FB8; --grey:#B9C1CC;
+  --navy:#0B2A4A; --navy2:#16406B; --blue:#2E6DB4; --sky:#9CC0E8; --ice:#EAF2FB; --ice2:#D3E3F5; --negl:#FFA3A3; --grey:#B9C1CC;
   --line:#DADFE6; --muted:#6B7480; --bg:#FFFFFF; --soft:#F4F6F9;
   --ink:#000000; --red:#C62828;
   --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
@@ -57,14 +57,71 @@ button{cursor:pointer}
 .tiles.big .val{font-size:clamp(15px,4.6vw,20px)}
 .tiles.big .lbl{min-height:44px}
 
-.plus{margin-top:14px;width:100%;border:0;border-radius:16px;background:var(--navy);color:#fff;
-  min-height:112px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
-.plus:active{background:var(--navy2)}
-.plus .p{font-size:54px;line-height:1;font-weight:300}
-.plus .t{font-size:14px;opacity:.85}
+.plus{margin-top:12px;width:100%;border:2px solid var(--navy);border-radius:16px;background:#fff;color:var(--navy);
+  min-height:92px;display:flex;align-items:center;justify-content:center;gap:14px}
+.plus:active{background:var(--ice)}
+.plus .p{width:52px;height:52px;border-radius:50%;background:var(--navy);color:#fff;font-size:36px;line-height:1;font-weight:300;display:grid;place-items:center;padding-bottom:3px}
+.plus .t{font-size:16.5px;font-weight:650}
+
+/* Farbkonzept v2 */
+.hero{background:var(--navy);color:#fff;border-radius:18px;padding:16px 18px 15px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-50px;top:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.06)}
+.hero::before{content:"";position:absolute;right:30px;bottom:-70px;width:140px;height:140px;border-radius:50%;background:rgba(46,109,180,.35)}
+.hero .l{font-size:12.5px;font-weight:650;opacity:.8;text-transform:uppercase;letter-spacing:.6px;position:relative}
+.hero .v{font-size:40px;font-weight:750;margin:4px 0 2px;font-variant-numeric:tabular-nums;letter-spacing:-.5px;position:relative;white-space:nowrap}
+.hero .v.neg{color:var(--negl)!important}
+.hero .f{font-size:12.5px;opacity:.75;position:relative}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.st{border-radius:14px;padding:12px;border:1px solid var(--ice2);background:var(--ice);min-width:0}
+.st .l{font-size:11.5px;font-weight:700;color:var(--navy2);text-transform:uppercase;letter-spacing:.4px;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st .v{font-size:20px;font-weight:720;margin-top:6px;color:#000;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st .h{font-size:12px;color:var(--muted);margin-top:3px}
+.st.blue{background:var(--blue);border-color:var(--blue)}
+.st.navy{background:var(--navy);border-color:var(--navy)}
+.st.white{background:#fff;border-color:var(--line)}
+.st.blue .l,.st.blue .v,.st.blue .h,.st.navy .l,.st.navy .v,.st.navy .h{color:#fff}
+.st.blue .h,.st.navy .h{opacity:.8}
+.st.blue .num,.st.navy .num{color:#fff}
+.st.blue .neg,.st.navy .neg{color:var(--negl)!important}
+.st.big .v{font-size:23px}
+.grid3 .st{padding:10px}.grid3 .st .v{font-size:15.5px}.grid3 .st .l{font-size:10.5px}
+.ico{width:20px;height:20px;border-radius:50%;display:inline-grid;place-items:center;background:rgba(255,255,255,.2);flex:none}
+.minibar{height:7px;border-radius:4px;background:#fff;margin-top:9px;overflow:hidden;border:1px solid var(--ice2)}
+.minibar i{display:block;height:100%;background:var(--blue);border-radius:4px}
+.minibar i.over{background:var(--red)}
+.cardh{padding:10px 14px;font-size:12px;font-weight:700;color:var(--navy2);text-transform:uppercase;letter-spacing:.5px;background:var(--ice);border-bottom:1px solid var(--ice2);border-radius:12px 12px 0 0}
+.mrow{display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--line)}
+.cardh+.mrow{border-top:0}
+.mrow .dot{width:10px;height:10px;border-radius:3px;flex:none}
+.mrow .tx{flex:1;min-width:0}
+.mrow .tx b{display:block;font-size:15px;font-weight:600;color:var(--navy)}
+.mrow .tx small{font-size:12px;color:var(--muted)}
+.mrow .v{font-size:16px;font-weight:700}
+.chip{display:inline-block;font-size:12px;font-weight:650;border-radius:99px;padding:3px 10px;background:var(--ice);color:var(--navy2);white-space:nowrap}
+.chip.red{background:#FDECEC;color:var(--red)}
+.chip.navy{background:var(--navy);color:#fff}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.bi{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex:none}
+.bi.e{background:#DCEAF8}.bi.a{background:#E7EBF1}.bi.s{background:#EAF2FB;border:1px dashed var(--sky)}
+.brow .c.warn{color:var(--red);font-weight:650}
+.banner{display:flex;align-items:center;gap:10px;border-radius:12px;padding:12px;margin-top:12px;background:#FDECEC;color:var(--red);font-size:14px;font-weight:650;border:0;width:100%;text-align:left}
+.banner.info{background:var(--ice);color:var(--navy2)}
+.banner span{flex:1}
+.seg.two{grid-template-columns:1fr 1fr}
+.seg button.on.minus{background:var(--red)}
+details.how{border-top:1px solid var(--line);margin-top:14px}
+details.how summary{list-style:none;padding:12px 0 4px;font-weight:650;color:var(--blue);font-size:14.5px}
+details.how summary::-webkit-details-marker{display:none}
+details.how summary::after{content:" ›";}
+details.how[open] summary::after{content:" ⌄"}
+details.how ol{padding-left:20px;margin:6px 0 4px}
+details.how li{font-size:14.5px;line-height:1.5;margin-bottom:6px;color:#1d2733}
+.infobox{background:var(--ice);border:1px solid var(--ice2);border-radius:12px;padding:12px 14px;font-size:14.5px;line-height:1.5;color:#1d2733}
+.infobox b{color:var(--navy)}
 
 .sec{margin-top:24px}
-.sec h2{font-size:15px;margin:0 0 8px;font-weight:700;color:var(--navy);display:flex;justify-content:space-between;align-items:baseline}
+.sec h2{font-size:15px;margin:0 0 10px;font-weight:700;color:var(--navy);display:flex;justify-content:space-between;align-items:baseline;border-left:4px solid var(--blue);padding-left:9px;line-height:1.25}
 .sec h2 a,.link{font-size:14px;font-weight:600;color:var(--navy2);text-decoration:none;background:none;border:0;padding:0}
 .card{border:1px solid var(--line);border-radius:12px;background:#fff}
 .hr{height:1px;background:var(--line)}
@@ -89,7 +146,7 @@ button{cursor:pointer}
 .bud:first-child{border-top:0}
 .bud .t{display:flex;justify-content:space-between;gap:8px;font-size:14.5px;font-weight:600}
 .bar{height:6px;border-radius:3px;background:var(--soft);margin:7px 0 5px;overflow:hidden;border:1px solid var(--line)}
-.bar i{display:block;height:100%;background:var(--navy)}
+.bar i{display:block;height:100%;background:var(--blue)}
 .bar i.over{background:var(--red)}
 .bud .s{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);gap:6px}
 .status{font-weight:600}
@@ -104,8 +161,8 @@ th:first-child{background:var(--navy)}
 td{color:var(--ink);font-variant-numeric:tabular-nums}
 td:first-child{color:var(--navy);font-weight:600}
 tr:last-child td{border-bottom:0}
-tr.sum td{font-weight:700;background:var(--soft)}
-tr.sum td:first-child{background:var(--soft)}
+tbody tr:nth-child(odd) td,table tr:nth-child(odd) td{background:#F6F9FD}
+tr.sum td,tr.sum td:first-child{font-weight:700;background:var(--ice)!important}
 td.lbl{color:var(--muted);font-weight:400}
 
 /* charts */
@@ -174,14 +231,15 @@ details.cat[open] summary .chev{transform:rotate(90deg)}
 .pill{font-size:11px;font-weight:650;border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:2px 8px}
 .subrow{display:flex;align-items:center;gap:8px;padding:9px 12px;border-top:1px solid var(--line);font-size:15px}
 .subrow span{flex:1}
-.x{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;width:34px;height:32px;font-size:16px;line-height:1}
+.x{background:#fff;border:1px solid var(--line);color:var(--navy2);border-radius:8px;width:36px;height:34px;display:grid;place-items:center;flex:none}
+.x[data-del-sub],.x[data-del-pay]{color:var(--red)}
 .x:active{color:var(--red);border-color:var(--red)}
 .addrow{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:var(--soft)}
 .addrow input,.addrow select{flex:1;min-width:0;border:1px solid var(--line);border-radius:8px;padding:9px 10px;background:#fff;font-size:15px}
 .addrow select{flex:0 0 auto}
 .addrow button{border:0;background:var(--navy);color:#fff;border-radius:8px;padding:0 14px;font-weight:650;font-size:14px}
 .catact{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
-.catact button{flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px;font-size:13.5px;color:var(--navy);font-weight:600}
+.catact button{flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 6px;font-size:13.5px;color:var(--navy);font-weight:600;display:flex;align-items:center;justify-content:center;gap:5px}
 .catact button.del{color:var(--red)}
 
 .budrow{display:flex;align-items:center;gap:10px;padding:10px 12px;border-top:1px solid var(--line)}
@@ -300,7 +358,7 @@ function statusOf(c,ist){
   return ist>c.budget?'Überschritten':'Im Rahmen';}
 
 /* ---------- Diagramme (SVG, ohne externe Bibliotheken) ---------- */
-const C1='#0B2A4A',C2='#6F8FB8',C3='#B9C1CC';
+const C1='#2E6DB4',C2='#0B2A4A',C3='#9CC0E8',NAVY='#0B2A4A';
 function niceMax(v){if(v<=0)return 1;const p=Math.pow(10,Math.floor(Math.log10(v)));const n=v/p;return (n<=1?1:n<=2?2:n<=2.5?2.5:n<=5?5:10)*p;}
 function kfmt(v){return Math.abs(v)>=1000?fmtN.format(v/1000)+'k':fmtN.format(v);}
 function groupedBars(labels,series,opts={}){
@@ -312,8 +370,8 @@ function groupedBars(labels,series,opts={}){
   labels.forEach((l,i)=>{const cx=pl+cw*i+cw/2;const x0=cx-bw*series.length/2;
     series.forEach((s,j)=>{const v=Math.max(0,s.data[i]||0);const h=(H-pt-pb)*v/mx;if(h>0)g+=`<rect x="${x0+j*bw}" y="${y(v)}" width="${bw-1}" height="${h}" fill="${s.color}" rx="1"><title>${esc(l)} · ${esc(s.name)}: ${fmtE.format(v)}</title></rect>`;});
     g+=`<text x="${cx}" y="${H-6}" font-size="9.5" fill="#6B7480" text-anchor="middle">${esc(l)}</text>`;});
-  if(opts.line){const yy=y(opts.line);g+=`<line x1="${pl}" x2="${W-pr}" y1="${yy}" y2="${yy}" stroke="${C1}" stroke-width="1.2" stroke-dasharray="4 3"/><text x="${W-pr}" y="${yy-4}" font-size="9.5" fill="${C1}" text-anchor="end">Budget ${kfmt(opts.line)}</text>`;}
-  const leg=series.map(s=>`<span><i style="background:${s.color}"></i>${esc(s.name)}</span>`).join('')+(opts.line?`<span><i style="background:none;border-top:1.5px dashed ${C1};height:0;border-radius:0"></i>Ausgabenbudget</span>`:'');
+  if(opts.line){const yy=y(opts.line);g+=`<line x1="${pl}" x2="${W-pr}" y1="${yy}" y2="${yy}" stroke="#C62828" stroke-width="1.2" stroke-dasharray="4 3"/><text x="${W-pr}" y="${yy-4}" font-size="9.5" fill="#C62828" text-anchor="end">Budget ${kfmt(opts.line)}</text>`;}
+  const leg=series.map(s=>`<span><i style="background:${s.color}"></i>${esc(s.name)}</span>`).join('')+(opts.line?`<span><i style="background:none;border-top:1.5px dashed #C62828;height:0;border-radius:0"></i>Ausgabenbudget</span>`:'');
   return `<div class="chart"><div class="legend">${leg}</div><svg viewBox="0 0 ${W} ${H}">${g}</svg></div>`;}
 function hBars(rows,opts={}){ // rows: {label, a, b(optional budget/second)}
   if(!rows.length)return '<div class="chart"><div class="empty">Noch keine Daten</div></div>';
@@ -323,35 +381,57 @@ function hBars(rows,opts={}){ // rows: {label, a, b(optional budget/second)}
     g+=`<text x="${lw-6}" y="${y0+(opts.pair?16:14)}" font-size="10.5" fill="#0B2A4A" text-anchor="end">${esc(lab)}</text>`;
     if(opts.pair){g+=`<rect x="${lw}" y="${y0+2}" width="${Math.max(0,sx(r.a))}" height="10" fill="${C3}" rx="1.5"/><rect x="${lw}" y="${y0+14}" width="${Math.max(0,sx(r.b))}" height="10" fill="${C1}" rx="1.5"/>`;
       g+=`<text x="${lw+Math.max(sx(r.a),sx(r.b))+5}" y="${y0+18}" font-size="10" fill="#000">${kfmt(r.b)}</text>`;}
-    else{const over=r.b&&r.a>r.b;g+=`<rect x="${lw}" y="${y0+4}" width="${Math.max(0,sx(r.a))}" height="13" fill="${over?'#C62828':C1}" rx="1.5"/>`;
+    else{const over=r.b&&r.a>r.b;g+=`<rect x="${lw}" y="${y0+4}" width="${Math.max(0,sx(r.a))}" height="13" fill="${over?'#C62828':C2}" rx="1.5"/>`;
       if(r.b)g+=`<line x1="${lw+sx(r.b)}" x2="${lw+sx(r.b)}" y1="${y0+1}" y2="${y0+20}" stroke="#6B7480" stroke-width="1.5"/>`;
       g+=`<text x="${lw+Math.max(sx(r.a),r.b?sx(r.b):0)+5}" y="${y0+14.5}" font-size="10" fill="${over?'#C62828':'#000'}">${fmtE0.format(r.a)}</text>`;}
   });
-  const leg=opts.pair?`<span><i style="background:${C3}"></i>${esc(opts.la)}</span><span><i style="background:${C1}"></i>${esc(opts.lb)}</span>`:`<span><i style="background:${C1}"></i>Ist</span><span><i style="background:none;border-left:2px solid #6B7480;width:2px;border-radius:0"></i>Budget</span><span><i style="background:#C62828"></i>über Budget</span>`;
+  const leg=opts.pair?`<span><i style="background:${C3}"></i>${esc(opts.la)}</span><span><i style="background:${C1}"></i>${esc(opts.lb)}</span>`:`<span><i style="background:${C2}"></i>Ist</span><span><i style="background:none;border-left:2px solid #6B7480;width:2px;border-radius:0"></i>Budget</span><span><i style="background:#C62828"></i>über Budget</span>`;
   return `<div class="chart"><div class="legend">${leg}</div><svg viewBox="0 0 ${W} ${H}">${g}</svg></div>`;}
 
 /* ---------- Startseite ---------- */
+const needsCat=b=>!catByName(b.haupt);
+const needsSub=b=>{const c=catByName(b.haupt);return !!c&&c.subs.length>0&&!c.subs.includes(b.unter);};
+const uncategorized=()=>S.bookings.filter(b=>needsCat(b)||needsSub(b));
+function daysSince(isoD){if(!isoD)return Infinity;return Math.floor((new Date(todayISO())-new Date(isoD))/864e5);}
 function renderStart(){
   const now=new Date(),y=now.getFullYear(),m=now.getMonth()+1;const[f,t]=monthRange(y,m);
   const konto=kontostandBis(addDays(todayISO(),1));const aus=sumArt('Ausgabe',f,t);const bud=budgetAusgaben();const rest=bud-aus;
+  const p=bud?aus/bud:0;
   const recent=[...S.bookings].sort((a,b)=>b.date.localeCompare(a.date)||(b.ts||0)-(a.ts||0)).slice(0,6);
+  const unc=uncategorized().length;const ds=daysSince(S.lastBackup);
+  const kv=Math.round(konto*100)/100;
   $('#pStart').innerHTML=`
-    <div class="tiles big">
-      <div class="tile"><div class="lbl">Kontostand</div><div class="val">${eur(konto)}</div><div class="hint">heute</div></div>
-      <div class="tile"><div class="lbl">Ausgaben ${MK[m-1]}</div><div class="val">${eur(aus)}</div><div class="hint">von ${fmtE0.format(bud)} Budget</div></div>
-      <div class="tile"><div class="lbl">Verfügbares Budget</div><div class="val">${eur(rest)}</div><div class="hint">${bud?fmtP.format(Math.max(0,aus/bud))+' genutzt':'kein Budget'}</div></div>
+    <div class="hero"><div class="l">Kontostand</div>
+      <div class="v ${kv<0?'neg':''}">${fmtE.format(kv===0?0:kv)}</div>
+      <div class="f">heute, ${fmtDate(todayISO())} · Anfangsbudget ${fmtE0.format(+S.start.betrag||0)} seit ${fmtDate(S.start.datum)}</div></div>
+    <div class="grid2">
+      <div class="st"><div class="l">Ausgaben ${MONATE[m-1]}</div><div class="v">${eur(aus)}</div><div class="h">von ${fmtE0.format(bud)} Budget</div></div>
+      <div class="st"><div class="l">Verfügbares Budget</div><div class="v">${eur(rest)}</div>
+        <div class="minibar"><i class="${p>1?'over':''}" style="width:${Math.min(100,p*100)}%"></i></div><div class="h">${bud?fmtP.format(p)+' genutzt':'kein Budget festgelegt'}</div></div>
     </div>
+    ${unc?`<button class="banner" id="uncB"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span>${unc} Buchung${unc===1?' braucht':'en brauchen'} eine Kategorie</span>Zuordnen ›</button>`:''}
     <button class="plus" id="plusBtn" aria-label="Neue Buchung"><span class="p">+</span><span class="t">Neue Ein- oder Ausgabe</span></button>
+    ${S.bookings.length&&ds>30?`<button class="banner info" id="bakB"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16406B" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M4 19h16"/></svg><span>${S.lastBackup?`Letzte Sicherung vor ${ds} Tagen`:'Noch keine Datensicherung'}</span>Sichern ›</button>`:''}
     <div class="sec"><h2>Letzte Buchungen <button class="link" id="allB">Alle anzeigen</button></h2>
       <div class="card">${recent.length?recent.map(bookingRow).join(''):'<div class="empty">Noch keine Buchungen.<br>Tippe auf <b>+</b>, um die erste einzutragen.</div>'}</div></div>
     <div class="swipehint">Nach links wischen für das Dashboard →</div>`;
   $('#plusBtn').onclick=()=>openForm();
   $('#allB').onclick=()=>openView('buchungen');
+  if(unc)$('#uncB').onclick=()=>viewBuchungen({onlyUnc:true});
+  if($('#bakB'))$('#bakB').onclick=()=>openView('daten');
   bindRows($('#pStart'));
 }
+const ICON={
+  e:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E6DB4" stroke-width="2.4" stroke-linecap="round"><path d="M12 4v15M6 13l6 6 6-6"/></svg>',
+  a:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B2A4A" stroke-width="2.4" stroke-linecap="round"><path d="M12 20V5M6 11l6-6 6 6"/></svg>',
+  s:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E6DB4" stroke-width="2.2" stroke-linecap="round"><ellipse cx="12" cy="7" rx="7" ry="3"/><path d="M5 7v5c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 12v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/></svg>'};
 function bookingRow(b){
-  const sign=b.art==='Einnahme'?1:-1;const cat=[b.haupt,b.unter].filter(Boolean).join(' › ');
-  return `<button class="brow" data-id="${b.id}"><div class="m"><div class="d">${esc(b.desc||b.unter||b.haupt||'Buchung')}</div><div class="c">${fmtDate(b.date)} · ${esc(cat)}${b.art==='Sparen'?' · Sparen':''}</div></div><div class="a">${eur(sign*b.amount)}</div></button>`;}
+  const sign=b.art==='Einnahme'?1:-1;const k=b.art==='Einnahme'?'e':b.art==='Sparen'?'s':'a';
+  let cat,warn=false;
+  if(needsCat(b)){cat='⚠ Kategorie eintragen'+(b.haupt?` (vorher: ${esc(b.haupt)})`:'');warn=true;}
+  else if(needsSub(b)){cat=`⚠ ${esc(b.haupt)} › Unterkategorie eintragen`;warn=true;}
+  else cat=esc([b.haupt,b.unter].filter(Boolean).join(' › '));
+  return `<button class="brow" data-id="${b.id}"><div class="bi ${k}">${ICON[k]}</div><div class="m"><div class="d">${esc(b.desc||b.unter||b.haupt||'Buchung')}</div><div class="c ${warn?'warn':''}">${warn?cat:fmtDate(b.date)+' · '+cat}</div></div><div class="a">${eur(sign*b.amount)}</div></button>`;}
 function bindRows(root){root.querySelectorAll('.brow').forEach(el=>el.onclick=()=>openForm(S.bookings.find(b=>b.id===el.dataset.id)));}
 
 /* ---------- Dashboard ---------- */
@@ -370,33 +450,33 @@ function renderDash(){
   const months=[...Array(12)].map((_,i)=>{const[a,b]=monthRange(y,i+1);const e=sumArt('Einnahme',a,b),o=sumArt('Ausgabe',a,b),s=sumArt('Sparen',a,b);return{e,o,s,u:e-o,abw:(e+o+s)?bud-o:0,has:(e+o+s)>0};});
   const nM=Math.max(1,months.filter(x=>x.has).length);
   const avg=k=>months.reduce((a,x)=>a+x[k],0)/nM;
+  const pU=bud?aus/bud:0;const q=ein?(ein-aus)/ein:0;
+  const chip=st=>`<span class="chip ${st==='Überschritten'?'red':st==='Ziel erreicht'?'navy':''}">${st}</span>`;
   $('#pDash').innerHTML=`
    <div class="selrow"><select class="sel" id="dM">${MONATE.map((n,i)=>`<option value="${i+1}" ${i+1===m?'selected':''}>${n}</option>`).join('')}</select>
    <select class="sel" id="dY">${ys.map(v=>`<option ${v===y?'selected':''}>${v}</option>`).join('')}</select></div>
-   <div class="tiles two" style="margin-top:12px">
-     <div class="tile"><div class="lbl">Einnahmen</div><div class="val">${eur(ein)}</div><div class="hint">Vormonat ${fmtE.format(ein0)}</div></div>
-     <div class="tile"><div class="lbl">Ausgaben</div><div class="val">${eur(aus)}</div><div class="hint">Vormonat ${fmtE.format(aus0)}</div></div>
-     <div class="tile"><div class="lbl">Gespart (Rücklagen)</div><div class="val">${eur(spa)}</div><div class="hint">Vormonat ${fmtE.format(spa0)}</div></div>
-     <div class="tile"><div class="lbl">Frei verfügbar</div><div class="val">${eur(ein-aus-spa)}</div><div class="hint">nach Ausgaben und Sparen</div></div>
-     <div class="tile"><div class="lbl">Überschuss</div><div class="val">${eur(ein-aus)}</div><div class="hint">Vormonat ${fmtE.format(ein0-aus0)}</div></div>
-     <div class="tile"><div class="lbl">Sparquote</div><div class="val">${pct(ein?(ein-aus)/ein:0)}</div><div class="hint">lfd. Jahr ${ejY?fmtP.format((ejY-ajY)/ejY):'–'}</div></div>
+   <div class="grid2">
+     <div class="st blue big"><div class="l"><span class="ico">${ICON.e.replace(/#2E6DB4/g,'#fff').replace('width="16" height="16"','width="12" height="12"')}</span>Einnahmen</div><div class="v">${eur(ein)}</div><div class="h">Vormonat ${fmtE.format(ein0)}</div></div>
+     <div class="st navy big"><div class="l"><span class="ico">${ICON.a.replace(/#0B2A4A/g,'#fff').replace('width="16" height="16"','width="12" height="12"')}</span>Ausgaben</div><div class="v">${eur(aus)}</div><div class="h">Vormonat ${fmtE.format(aus0)}</div></div>
    </div>
-   <div class="sec card">
-     <div class="kv"><span>Ausgabenbudget</span>${eur(bud)}</div>
-     <div class="kv"><span>davon genutzt</span>${pct(bud?aus/bud:0)}</div>
-     <div class="kv"><span>Kategorien über Budget</span><span class="num ${over?'neg':''}">${over}</span></div>
-     <div class="kv"><span>Kategorien ohne Budget</span><span class="num">${ohne}</span></div>
-     <div class="kv"><span>Anfangsbudget</span>${eur(S.start.betrag)}</div>
-     <div class="kv"><span>Stand am</span><span class="num">${fmtDate(S.start.datum)}</span></div>
-     <div class="kv"><span>Kontostand Monatsende</span>${eur(kontostandBis(t))}</div>
+   <div class="card" style="margin-top:12px"><div class="cardh">Weitere Kennzahlen ${MONATE[m-1]}</div>
+     <div class="mrow"><span class="dot" style="background:${C3}"></span><div class="tx"><b>Gespart (Rücklagen)</b><small>Vormonat ${fmtE.format(spa0)}</small></div><div class="v">${eur(spa)}</div></div>
+     <div class="mrow"><span class="dot" style="background:${C2}"></span><div class="tx"><b>Frei verfügbar</b><small>nach Ausgaben und Sparen</small></div><div class="v">${eur(ein-aus-spa)}</div></div>
+     <div class="mrow"><span class="dot" style="background:${C1}"></span><div class="tx"><b>Überschuss</b><small>Einnahmen − Ausgaben · Vormonat ${fmtE.format(ein0-aus0)}</small></div><div class="v">${eur(ein-aus)}</div></div>
+     <div class="mrow"><span class="dot" style="background:var(--grey)"></span><div class="tx"><b>Sparquote</b><small>laufendes Jahr ${ejY?fmtP.format((ejY-ajY)/ejY):'–'}</small></div><div class="v">${pct(q)}</div></div>
    </div>
+   <div class="grid2">
+     <div class="st white"><div class="l">Ausgabenbudget</div><div class="v">${pct(pU)}</div><div class="minibar"><i class="${pU>1?'over':''}" style="width:${Math.min(100,pU*100)}%"></i></div><div class="h">${fmtE0.format(aus)} von ${fmtE0.format(bud)} genutzt</div></div>
+     <div class="st white"><div class="l">Kontostand Monatsende</div><div class="v">${eur(kontostandBis(t))}</div><div class="h">Start ${fmtE0.format(+S.start.betrag||0)} am ${fmtDate(S.start.datum)}</div></div>
+   </div>
+   <div class="chips"><span class="chip ${over?'red':''}">${over} Kategorie${over===1?'':'n'} über Budget</span><span class="chip">${ohne} ohne Budget</span></div>
    <div class="sec"><h2>Budget-Check ${MONATE[m-1]}</h2><div class="card">
      ${rows.map(r=>{const b=+r.c.budget||0;const p=b?r.ist/b:0;const ov=r.c.typ!=='Sparen'&&b&&r.ist>b;
        return `<div class="bud"><div class="t"><span>${esc(r.c.name)}</span><span>${eur(r.ist)}</span></div>
        <div class="bar"><i class="${ov?'over':''}" style="width:${Math.min(100,p*100)}%"></i></div>
        <div class="s"><span>Budget ${fmtE0.format(b)} · Rest ${b?`<span class="num ${b-r.ist<0?'neg':''}" style="color:inherit">${fmtE.format(b-r.ist)}</span>`:'–'}</span><span>${b?fmtP.format(p):''}</span></div>
-       <div class="s"><span>Vormonat ${fmtE.format(r.vor)}</span><span class="status ${r.st==='Überschritten'?'neg':''}">${r.st}</span></div></div>`;}).join('')}
-     <div class="bud" style="background:var(--soft)"><div class="t"><span>Summe Ausgaben + Sparen</span><span>${eur(sumI)}</span></div>
+       <div class="s" style="align-items:center;margin-top:3px"><span>Vormonat ${fmtE.format(r.vor)}</span>${r.st==='–'?'':chip(r.st)}</div></div>`;}).join('')}
+     <div class="bud" style="background:var(--ice);border-radius:0 0 12px 12px"><div class="t"><span>Summe Ausgaben + Sparen</span><span>${eur(sumI)}</span></div>
        <div class="s" style="margin-top:4px"><span>Budget ${fmtE0.format(sumB)} · Rest <span class="num ${sumB-sumI<0?'neg':''}" style="color:inherit">${fmtE.format(sumB-sumI)}</span></span><span>${sumB?fmtP.format(sumI/sumB):''}</span></div>
        <div class="s"><span>Vormonat ${fmtE.format(sumV)}</span><span></span></div></div>
    </div></div>
@@ -448,8 +528,8 @@ function openForm(b=null){
     <div class="amount"><input id="fAmt" inputmode="decimal" placeholder="0,00" autocomplete="off" value="${edit?String(b.amount.toFixed(2)).replace('.',','):''}" aria-label="Betrag"><span>€</span></div>
     <div class="toggle ${ein?'ein':''}" id="fTog" role="switch"><div class="knob"></div><button type="button" class="b-aus">Ausgabe</button><button type="button" class="b-ein">Einnahme</button></div>
     <label class="fl" for="fDesc">Beschreibung</label><input class="inp" id="fDesc" placeholder="z. B. Einkauf Supermarkt" value="${esc(edit?b.desc:'')}" autocomplete="off">
-    <label class="fl" for="fHaupt">Hauptkategorie</label><select class="inp" id="fHaupt"></select>
-    <label class="fl" for="fUnter">Unterkategorie</label><select class="inp" id="fUnter"></select>
+    <label class="fl" for="fHaupt">Hauptkategorie</label><select class="inp" id="fHaupt"></select><div class="err" id="fHauptHint"></div>
+    <label class="fl" for="fUnter">Unterkategorie</label><select class="inp" id="fUnter"></select><div class="err" id="fUnterHint"></div>
     <label class="fl" for="fPay">Zahlungsmethode</label><select class="inp" id="fPay"><option value="">Bitte wählen</option>${S.pay.map(p=>`<option ${edit&&b.zahlung===p?'selected':''}>${esc(p)}</option>`).join('')}</select>
     <div id="fTypWrap"><label class="fl">Ausgabenart</label><div class="seg" id="fTyp">${TYPEN.map(x=>`<button type="button" data-t="${x}">${x==='Spontan / einmalig'?'Spontan':x}</button>`).join('')}</div></div>
     <label class="fl" for="fNote">Notizen</label><textarea class="inp" id="fNote" placeholder="optional">${esc(edit?b.notiz:'')}</textarea>
@@ -458,11 +538,12 @@ function openForm(b=null){
     ${edit?'<button class="btn danger" id="fDel">Buchung löschen</button>':''}`;
   const H=v.querySelector('#fHaupt'),U=v.querySelector('#fUnter'),T=v.querySelector('#fTog'),P=v.querySelector('#fPay');
   function fillHaupt(sel){const list=S.cats.filter(c=>ein?c.typ==='Einnahme':c.typ!=='Einnahme');
-    let opts='<option value="">Bitte wählen</option>'+list.map(c=>`<option ${c.name===sel?'selected':''}>${esc(c.name)}</option>`).join('');
-    if(sel&&!list.some(c=>c.name===sel))opts+=`<option selected>${esc(sel)}</option>`;H.innerHTML=opts;fillUnter(edit&&sel===b.haupt?b.unter:'');}
+    H.innerHTML='<option value="">Bitte wählen</option>'+list.map(c=>`<option ${c.name===sel?'selected':''}>${esc(c.name)}</option>`).join('');
+    v.querySelector('#fHauptHint').textContent=(edit&&b.haupt&&sel===b.haupt&&!catByName(b.haupt))?`Kategorie eintragen – „${b.haupt}“ gibt es nicht mehr.`:'';
+    fillUnter(edit&&sel===b.haupt?b.unter:'');}
   function fillUnter(sel){const c=catByName(H.value);if(!c){U.innerHTML='<option value="">Erst Hauptkategorie wählen</option>';U.disabled=true;return;}
-    U.disabled=false;let o='<option value="">Bitte wählen</option>'+c.subs.map(s=>`<option ${s===sel?'selected':''}>${esc(s)}</option>`).join('');
-    if(sel&&!c.subs.includes(sel))o+=`<option selected>${esc(sel)}</option>`;U.innerHTML=o;}
+    U.disabled=false;U.innerHTML='<option value="">Bitte wählen</option>'+c.subs.map(s=>`<option ${s===sel?'selected':''}>${esc(s)}</option>`).join('');
+    v.querySelector('#fUnterHint').textContent=(sel&&!c.subs.includes(sel))?`Unterkategorie eintragen – „${sel}“ gibt es nicht mehr.`:'';}
   function setTyp(t){typ=t;v.querySelectorAll('#fTyp button').forEach(x=>x.classList.toggle('on',x.dataset.t===t));}
   function setEin(on){ein=on;T.classList.toggle('ein',on);v.querySelector('#fTypWrap').style.display=on?'none':'';
     const cur=catByName(H.value);fillHaupt(cur&&((cur.typ==='Einnahme')===on)?H.value:'');}
@@ -471,7 +552,7 @@ function openForm(b=null){
   // Wischen über den Schieberegler
   let sx=null;T.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
   T.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>25)setEin(dx>0);sx=null;});
-  H.onchange=()=>fillUnter('');
+  H.onchange=()=>{v.querySelector('#fHauptHint').textContent='';fillUnter('');};
   U.onchange=()=>{ // Zahlungsmethode & Ausgabenart von der letzten gleichen Buchung vorschlagen
     if(edit)return;const last=[...S.bookings].reverse().find(x=>x.haupt===H.value&&x.unter===U.value);
     if(last){if(!P.value&&last.zahlung)P.value=last.zahlung;if(last.typ&&!ein)setTyp(last.typ);}};
@@ -480,10 +561,11 @@ function openForm(b=null){
   function doSave(){
     const a=parseAmount(amt.value);const err=v.querySelector('#fErr');
     if(!(a>0)){err.textContent='Bitte einen Betrag größer 0 eintragen.';amt.focus();return;}
-    const c=catByName(H.value);if(!H.value){err.textContent='Bitte eine Hauptkategorie wählen.';return;}
+    const c=catByName(H.value);if(!H.value||!c){err.textContent='Bitte eine Hauptkategorie wählen.';return;}
+    if(c.subs.length&&!U.value){err.textContent='Bitte eine Unterkategorie wählen.';return;}
     const date=v.querySelector('#fDate').value||todayISO();
     const rec={id:edit?b.id:uid(),ts:edit?b.ts:Date.now(),date,desc:v.querySelector('#fDesc').value.trim(),amount:Math.round(a*100)/100,
-      art:ein?'Einnahme':(c&&c.typ==='Sparen'?'Sparen':(edit&&b.art==='Sparen'&&!c?'Sparen':'Ausgabe')),
+      art:ein?'Einnahme':(c.typ==='Sparen'?'Sparen':'Ausgabe'),
       haupt:H.value,unter:U.value,zahlung:P.value,typ:ein?'':typ,notiz:v.querySelector('#fNote').value.trim()};
     if(edit){const i=S.bookings.findIndex(x=>x.id===b.id);S.bookings[i]=rec;}else S.bookings.push(rec);
     save();refresh();v.close();toast(edit?'Änderung gespeichert':(ein?'Einnahme gespeichert':'Ausgabe gespeichert'));}
@@ -492,24 +574,27 @@ function openForm(b=null){
 }
 
 /* ---------- Einnahmen und Ausgaben (Liste) ---------- */
-function viewBuchungen(){
+function viewBuchungen(opts={}){
   const v=makeView('Einnahmen und Ausgaben',{right:'+ Neu'});v.rbtn.onclick=()=>openForm();
-  const n=new Date();let fy=n.getFullYear(),fm=n.getMonth()+1,q='';
+  const n=new Date();let fy=n.getFullYear(),fm=n.getMonth()+1,q='',onlyUnc=!!opts.onlyUnc;
   v._refresh=()=>{
-    const ys=yearsList();
-    let list=S.bookings.filter(b=>(fy==='all'||+b.date.slice(0,4)===fy)&&(fm==='all'||fy==='all'||+b.date.slice(5,7)===fm));
+    const ys=yearsList();const uncAll=uncategorized();if(!uncAll.length)onlyUnc=false;
+    let list=onlyUnc?uncAll:S.bookings.filter(b=>(fy==='all'||+b.date.slice(0,4)===fy)&&(fm==='all'||fy==='all'||+b.date.slice(5,7)===fm));
     if(q){const s=q.toLowerCase();list=list.filter(b=>[b.desc,b.haupt,b.unter,b.zahlung,b.notiz,b.typ].join(' ').toLowerCase().includes(s));}
     list.sort((a,b)=>b.date.localeCompare(a.date)||(b.ts||0)-(a.ts||0));
     const e=list.filter(b=>b.art==='Einnahme').reduce((a,b)=>a+b.amount,0),o=list.filter(b=>b.art==='Ausgabe').reduce((a,b)=>a+b.amount,0),s=list.filter(b=>b.art==='Sparen').reduce((a,b)=>a+b.amount,0);
     let html='',last='';
     for(const b of list){if(b.date!==last){if(last)html+='</div>';const d=new Date(b.date+'T12:00');html+=`<div class="dayhead">${d.toLocaleDateString('de-DE',{weekday:'short',day:'2-digit',month:'long',year:'numeric'})}</div><div class="card">`;last=b.date;}html+=bookingRow(b);}
     if(last)html+='</div>';
-    v.body.innerHTML=`<div class="selrow"><select class="sel" id="lM"><option value="all">Alle Monate</option>${MONATE.map((x,i)=>`<option value="${i+1}" ${fm===i+1?'selected':''}>${x}</option>`).join('')}</select>
+    v.body.innerHTML=`
+      ${uncAll.length?`<button class="banner ${onlyUnc?'info':''}" id="lU" style="margin-top:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span>${onlyUnc?'Es werden nur Buchungen ohne Kategorie angezeigt. Tippe eine Buchung an und wähle Haupt- und Unterkategorie.':`${uncAll.length} Buchung${uncAll.length===1?'':'en'} ohne gültige Kategorie`}</span>${onlyUnc?'Alle ✕':'Anzeigen ›'}</button><div style="height:12px"></div>`:''}
+      <div class="selrow" ${onlyUnc?'style="display:none"':''}><select class="sel" id="lM"><option value="all">Alle Monate</option>${MONATE.map((x,i)=>`<option value="${i+1}" ${fm===i+1?'selected':''}>${x}</option>`).join('')}</select>
       <select class="sel" id="lY"><option value="all" ${fy==='all'?'selected':''}>Alle Jahre</option>${ys.map(y=>`<option ${y===fy?'selected':''}>${y}</option>`).join('')}</select></div>
       <input class="search" id="lQ" type="search" placeholder="Suchen (Beschreibung, Kategorie, Notiz …)" value="${esc(q)}">
-      <div class="tiles" style="margin-top:12px"><div class="tile"><div class="lbl">Einnahmen</div><div class="val" style="font-size:15px">${eur(e)}</div></div><div class="tile"><div class="lbl">Ausgaben</div><div class="val" style="font-size:15px">${eur(o)}</div></div><div class="tile"><div class="lbl">Gespart</div><div class="val" style="font-size:15px">${eur(s)}</div></div></div>
+      <div class="grid3" style="margin-top:12px"><div class="st blue"><div class="l">Einnahmen</div><div class="v">${eur(e)}</div></div><div class="st navy"><div class="l">Ausgaben</div><div class="v">${eur(o)}</div></div><div class="st"><div class="l">Gespart</div><div class="v">${eur(s)}</div></div></div>
       <div class="note">${list.length} Buchung${list.length===1?'':'en'} · Tippen zum Bearbeiten oder Löschen</div>
       ${html||'<div class="empty">Keine Buchungen in diesem Zeitraum.</div>'}`;
+    const lU=v.body.querySelector('#lU');if(lU)lU.onclick=()=>{onlyUnc=!onlyUnc;v._refresh();};
     v.body.querySelector('#lM').onchange=ev=>{fm=ev.target.value==='all'?'all':+ev.target.value;v._refresh();};
     v.body.querySelector('#lY').onchange=ev=>{fy=ev.target.value==='all'?'all':+ev.target.value;v._refresh();};
     const qi=v.body.querySelector('#lQ');qi.oninput=()=>{q=qi.value;clearTimeout(qi._t);qi._t=setTimeout(()=>{v._refresh();const n2=v.body.querySelector('#lQ');n2.focus();n2.setSelectionRange(q.length,q.length);},250);};
@@ -610,19 +695,26 @@ function viewJahr(){
 }
 
 /* ---------- Kategorien ---------- */
+const PEN='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></svg>';
+const BIN='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>';
 function viewKategorien(){
   const v=makeView('Kategorien');const open=new Set();
   v._refresh=()=>{
-    const used=n=>S.bookings.filter(b=>b.haupt===n).length;
-    v.body.innerHTML=`<div class="note" style="margin-top:0">Tippe auf eine Hauptkategorie, um Unterkategorien zu sehen, hinzuzufügen oder zu entfernen. Budgets legst du unter <b>Budgets</b> fest.</div>
-      <div class="sec" style="margin-top:12px"><h2>Haupt- und Unterkategorien</h2>
+    const usedMain=n=>S.bookings.filter(b=>b.haupt===n).length;
+    const usedSub=(n,sub)=>S.bookings.filter(b=>b.haupt===n&&b.unter===sub).length;
+    const unc=uncategorized().length;
+    v.body.innerHTML=`<div class="infobox">Tippe auf eine Hauptkategorie, um sie zu öffnen. Mit <b>✎</b> benennst du um, mit <b>🗑</b> löschst du. Budgets legst du unter <b>Budgets</b> fest.</div>
+      ${unc?`<button class="banner" id="kU"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span>${unc} Buchung${unc===1?' braucht':'en brauchen'} eine neue Kategorie</span>Zuordnen ›</button>`:''}
+      <div class="sec" style="margin-top:16px"><h2>Haupt- und Unterkategorien</h2>
       ${S.cats.map((c,i)=>`<details class="cat" data-i="${i}" ${open.has(c.name)?'open':''}><summary><span class="n">${esc(c.name)}</span><span class="pill">${c.typ}</span><svg class="chev" width="10" height="16" viewBox="0 0 10 16"><path d="M2 2l6 6-6 6" fill="none" stroke="#0B2A4A" stroke-width="2"/></svg></summary>
-        ${c.subs.map((s,j)=>`<div class="subrow"><span>${esc(s)}</span><button class="x" data-del-sub="${j}" aria-label="Unterkategorie entfernen">✕</button></div>`).join('')}
-        <div class="addrow"><input placeholder="Neue Unterkategorie" data-new-sub><button data-add-sub>Hinzufügen</button></div>
-        <div class="catact"><button data-ren>Umbenennen</button><button data-typ>Typ: ${c.typ}</button><button class="del" data-del>Löschen</button></div></details>`).join('')}
+        <div class="catact" style="border-top:1px solid var(--line);background:var(--ice)"><button data-ren>${PEN} Umbenennen</button>
+          <select data-typ style="flex:1;border:1px solid var(--line);border-radius:8px;padding:8px;background:#fff;font-size:13.5px;font-weight:600;color:var(--navy)">${['Ausgabe','Einnahme','Sparen'].map(t=>`<option ${t===c.typ?'selected':''} value="${t}">Typ: ${t}</option>`).join('')}</select>
+          <button class="del" data-del>${BIN} Löschen</button></div>
+        ${c.subs.map((s,j)=>`<div class="subrow"><span>${esc(s)}</span><button class="x" data-ren-sub="${j}" aria-label="Umbenennen">${PEN}</button><button class="x" data-del-sub="${j}" aria-label="Löschen">${BIN}</button></div>`).join('')||'<div class="subrow muted"><span>Noch keine Unterkategorien</span></div>'}
+        <div class="addrow"><input placeholder="Neue Unterkategorie" data-new-sub><button data-add-sub>Hinzufügen</button></div></details>`).join('')}
       <div class="card" style="margin-top:4px"><div class="addrow" style="border-top:0;border-radius:12px"><input id="newCat" placeholder="Neue Hauptkategorie"><select id="newTyp"><option>Ausgabe</option><option>Einnahme</option><option>Sparen</option></select><button id="addCat">+</button></div></div></div>
       <div class="sec"><h2>Zahlungsmethoden</h2><div class="card">
-        ${S.pay.map((p,i)=>`<div class="subrow" style="${i===0?'border-top:0':''}"><span>${esc(p)}</span><button class="x" data-del-pay="${i}">✕</button></div>`).join('')}
+        ${S.pay.map((p,i)=>`<div class="subrow" style="${i===0?'border-top:0':''}"><span>${esc(p)}</span><button class="x" data-ren-pay="${i}">${PEN}</button><button class="x" data-del-pay="${i}">${BIN}</button></div>`).join('')}
         <div class="addrow"><input id="newPay" placeholder="Neue Zahlungsmethode"><button id="addPay">Hinzufügen</button></div></div></div>
       <div class="sec"><h2>Typ und Ausgabenart</h2><div class="card guide" style="padding:4px 12px">
         <p><b>Einnahme</b>: Geld, das hereinkommt (Gehalt, BAföG, Erstattungen …)</p>
@@ -631,28 +723,43 @@ function viewKategorien(){
         <p><b>Fest</b>: regelmäßig geplant (Miete, Versicherungen, Handy, Beiträge)</p>
         <p><b>Variabel</b>: regelmäßig, Höhe schwankt (Lebensmittel, Tanken, Mensa)</p>
         <p><b>Spontan / einmalig</b>: ungeplant (Geschenke, Fußballschuhe, Autoreparatur)</p></div></div>`;
+    const kU=v.body.querySelector('#kU');if(kU)kU.onclick=()=>viewBuchungen({onlyUnc:true});
     v.body.querySelectorAll('details.cat').forEach(d=>{const c=S.cats[+d.dataset.i];
       d.addEventListener('toggle',()=>{d.open?open.add(c.name):open.delete(c.name);});
-      d.querySelectorAll('[data-del-sub]').forEach(btn=>btn.onclick=()=>{const s=c.subs[+btn.dataset.delSub];
-        if(confirm(`Unterkategorie „${s}“ entfernen?\nBisherige Buchungen bleiben erhalten.`)){c.subs.splice(+btn.dataset.delSub,1);save();refresh();}});
+      d.querySelectorAll('[data-del-sub]').forEach(btn=>btn.onclick=()=>{const s=c.subs[+btn.dataset.delSub];const u=usedSub(c.name,s);
+        if(confirm(`Unterkategorie „${s}“ löschen?`+(u?`\n\n${u} Buchung${u===1?'':'en'} nutzen sie. Sie bleiben erhalten und werden unter „Einnahmen und Ausgaben“ mit „Unterkategorie eintragen“ markiert, bis du sie neu zuordnest.`:''))){c.subs.splice(+btn.dataset.delSub,1);save();refresh();toast('Unterkategorie gelöscht');}});
+      d.querySelectorAll('[data-ren-sub]').forEach(btn=>btn.onclick=()=>{const old=c.subs[+btn.dataset.renSub];
+        const n=(prompt(`Neuer Name für „${old}“:`,old)||'').trim();if(!n||n===old)return;if(c.subs.includes(n)){alert('Diese Unterkategorie gibt es schon.');return;}
+        c.subs[+btn.dataset.renSub]=n;let k=0;S.bookings.forEach(b=>{if(b.haupt===c.name&&b.unter===old){b.unter=n;k++;}});save();refresh();toast(k?`Umbenannt – ${k} Buchungen angepasst`:'Umbenannt');});
       const inp=d.querySelector('[data-new-sub]');const add=()=>{const n=inp.value.trim();if(!n)return;if(c.subs.includes(n)){toast('Gibt es schon');return;}c.subs.push(n);save();refresh();toast('Unterkategorie hinzugefügt');};
       d.querySelector('[data-add-sub]').onclick=add;inp.onkeydown=e=>{if(e.key==='Enter')add();};
       d.querySelector('[data-ren]').onclick=()=>{const n=(prompt('Neuer Name für „'+c.name+'“:',c.name)||'').trim();if(!n||n===c.name)return;
         if(catByName(n)){alert('Diesen Namen gibt es schon.');return;}
-        S.bookings.forEach(b=>{if(b.haupt===c.name)b.haupt=n;});open.delete(c.name);open.add(n);c.name=n;save();refresh();toast('Umbenannt – Buchungen angepasst');};
-      d.querySelector('[data-typ]').onclick=()=>{const order=['Ausgabe','Einnahme','Sparen'];const nt=order[(order.indexOf(c.typ)+1)%3];
-        if(!confirm(`Typ von „${c.name}“ auf „${nt}“ ändern?\nBisherige Buchungen dieser Kategorie werden entsprechend umgestellt.`))return;
+        let k=0;S.bookings.forEach(b=>{if(b.haupt===c.name){b.haupt=n;k++;}});open.delete(c.name);open.add(n);c.name=n;save();refresh();toast(k?`Umbenannt – ${k} Buchungen angepasst`:'Umbenannt');};
+      d.querySelector('[data-typ]').onchange=e=>{const nt=e.target.value;
+        if(!confirm(`Typ von „${c.name}“ auf „${nt}“ ändern?\nBisherige Buchungen dieser Kategorie werden entsprechend umgestellt.`)){e.target.value=c.typ;return;}
         c.typ=nt;S.bookings.forEach(b=>{if(b.haupt===c.name){b.art=nt;if(nt==='Einnahme')b.typ='';}});save();refresh();};
-      d.querySelector('[data-del]').onclick=()=>{const u=used(c.name);
-        if(confirm(`Hauptkategorie „${c.name}“ mit allen Unterkategorien löschen?`+(u?`\n\n${u} Buchungen nutzen sie noch. Sie bleiben erhalten, erscheinen aber unter „Ohne gültige Kategorie“.`:''))){S.cats.splice(+d.dataset.i,1);save();refresh();}};
+      d.querySelector('[data-del]').onclick=()=>{const u=usedMain(c.name);
+        if(confirm(`Hauptkategorie „${c.name}“ mit allen Unterkategorien löschen?`+(u?`\n\n${u} Buchung${u===1?'':'en'} nutzen sie. Sie bleiben erhalten und werden unter „Einnahmen und Ausgaben“ mit „Kategorie eintragen“ markiert. Dort kannst du sie einer neuen Haupt- und Unterkategorie zuordnen.`:''))){open.delete(c.name);S.cats.splice(+d.dataset.i,1);save();refresh();toast('Hauptkategorie gelöscht');}};
     });
     v.body.querySelector('#addCat').onclick=()=>{const n=v.body.querySelector('#newCat').value.trim();if(!n)return;if(catByName(n)){toast('Gibt es schon');return;}
       S.cats.push({name:n,typ:v.body.querySelector('#newTyp').value,budget:0,subs:[]});open.add(n);save();refresh();toast('Hauptkategorie angelegt');};
-    v.body.querySelectorAll('[data-del-pay]').forEach(b=>b.onclick=()=>{const p=S.pay[+b.dataset.delPay];if(confirm(`Zahlungsmethode „${p}“ entfernen?`)){S.pay.splice(+b.dataset.delPay,1);save();refresh();}});
+    v.body.querySelectorAll('[data-del-pay]').forEach(b=>b.onclick=()=>{const p=S.pay[+b.dataset.delPay];if(confirm(`Zahlungsmethode „${p}“ löschen?\nBisherige Buchungen behalten ihren Eintrag.`)){S.pay.splice(+b.dataset.delPay,1);save();refresh();}});
+    v.body.querySelectorAll('[data-ren-pay]').forEach(b=>b.onclick=()=>{const i=+b.dataset.renPay,old=S.pay[i];const n=(prompt(`Neuer Name für „${old}“:`,old)||'').trim();if(!n||n===old||S.pay.includes(n))return;
+      S.pay[i]=n;S.bookings.forEach(x=>{if(x.zahlung===old)x.zahlung=n;});save();refresh();toast('Umbenannt');});
     v.body.querySelector('#addPay').onclick=()=>{const n=v.body.querySelector('#newPay').value.trim();if(!n||S.pay.includes(n))return;S.pay.push(n);save();refresh();};
   };
   v._refresh();
 }
+
+/* ---------- Plus/Minus-Auswahl für das Anfangsbudget ---------- */
+function signSeg(id,val){const neg=(+val||0)<0;
+  return `<div class="seg two" id="${id}" style="margin-bottom:10px"><button type="button" data-s="1" class="${neg?'':'on'}">+ Guthaben</button><button type="button" data-s="-1" class="${neg?'on minus':''}">− Minus (Dispo)</button></div>`;}
+function bindSign(root,id,onchange){const seg=root.querySelector('#'+id);
+  seg.querySelectorAll('button').forEach(b=>b.onclick=()=>{seg.querySelectorAll('button').forEach(x=>x.classList.remove('on','minus'));b.classList.add('on');if(b.dataset.s==='-1')b.classList.add('minus');onchange&&onchange();});
+  return ()=>seg.querySelector('[data-s="-1"]').classList.contains('on')?-1:1;}
+function signedValue(text,sign){const a=parseAmount(text||'0');if(isNaN(a))return NaN;return a<0?a:sign*Math.abs(a);}
+const absStr=v=>String(Math.abs(+v||0)).replace('.',',');
 
 /* ---------- Budgets ---------- */
 function viewBudgets(){
@@ -661,7 +768,7 @@ function viewBudgets(){
     const bud=budgetAusgaben(),sz=sparziel(),einPlan=S.cats.filter(c=>c.typ==='Einnahme').reduce((a,c)=>a+(+c.budget||0),0);
     v.body.innerHTML=`
       <div class="sec" style="margin-top:0"><h2>Anfangsbudget (Startguthaben)</h2><div class="card">
-        <div class="budrow"><div class="n">Anfangsbudget<small>z. B. Kontostand Girokonto, negativ bei Dispo</small></div><input id="sB" inputmode="decimal" value="${String(S.start.betrag).replace('.',',')}"></div>
+        <div class="budrow" style="display:block">${signSeg('sBS',S.start.betrag)}<div style="display:flex;align-items:center;gap:10px"><div class="n">Anfangsbudget<small>z. B. Kontostand Girokonto</small></div><input id="sB" inputmode="decimal" value="${absStr(S.start.betrag)}"></div></div>
         <div class="budrow"><div class="n">Stand am<small>Buchungen ab diesem Tag zählen dazu</small></div><input id="sD" type="date" value="${S.start.datum}" style="width:150px"></div></div>
         <div class="note">Buchungen vor dem Stichtag sind im Anfangsbudget schon enthalten und werden nicht nochmal gezählt.</div></div>
       <div class="sec"><h2>Monatsbudgets je Hauptkategorie</h2><div class="card">
@@ -672,7 +779,9 @@ function viewBudgets(){
         <div class="kv"><span>Sparziel / Monat</span>${eur(sz)}</div>
         <div class="kv"><span>Geplante Einnahmen / Monat</span>${eur(einPlan)}</div>
         <div class="kv"><span>Spielraum (Einnahmen − Budget − Sparziel)</span>${eur(einPlan-bud-sz)}</div></div></div>`;
-    v.body.querySelector('#sB').onchange=e=>{const a=parseAmount(e.target.value);if(isNaN(a)){toast('Ungültiger Betrag');return;}S.start.betrag=a;delete S.start.ex;save();refresh();toast('Gespeichert');};
+    const saveStart=()=>{const a=signedValue(v.body.querySelector('#sB').value,getSign());if(isNaN(a)){toast('Ungültiger Betrag');return;}S.start.betrag=a;delete S.start.ex;save();refresh();toast('Anfangsbudget gespeichert');};
+    const getSign=bindSign(v.body,'sBS',saveStart);
+    v.body.querySelector('#sB').onchange=saveStart;
     v.body.querySelector('#sD').onchange=e=>{if(e.target.value){S.start.datum=e.target.value;delete S.start.ex;save();refresh();toast('Gespeichert');}};
     v.body.querySelectorAll('input[data-i]').forEach(inp=>inp.onchange=()=>{const a=parseAmount(inp.value||'0');if(isNaN(a)||a<0){toast('Ungültiger Betrag');return;}S.cats[+inp.dataset.i].budget=a;save();refresh();toast('Budget gespeichert');});
   };
@@ -700,10 +809,11 @@ function viewAnleitung(){
   <h3>Buchung ändern oder löschen</h3>
   <p>Menü → <b>Einnahmen und Ausgaben</b> (oder eine Buchung auf der Startseite) antippen. Dort kannst du sie bearbeiten oder löschen. Über Monat, Jahr und Suche findest du jede Buchung.</p>
   <h3>Budgets und Anfangsbudget</h3>
-  <p>Menü → <b>Budgets</b>: Für jede Hauptkategorie ein Monatsbudget eintragen (0 € = kein Budget). Unter <b>Anfangsbudget</b> trägst du ein, wie viel Geld am Stichtag schon da ist (auch negativ, z. B. −250 bei Dispo), und unter „Stand am“ das Datum. Daraus berechnet die App den Kontostand.</p>
+  <p>Menü → <b>Budgets</b>: Für jede Hauptkategorie ein Monatsbudget eintragen (0 € = kein Budget). Unter <b>Anfangsbudget</b> trägst du ein, wie viel Geld am Stichtag schon da ist, und unter „Stand am“ das Datum. Bist du im Minus (z. B. Dispo), tippe auf <b>„− Minus“</b> und trage den Betrag ein. Daraus berechnet die App den Kontostand.</p>
   <p>Das <b>verfügbare Budget</b> auf der Startseite ist die Summe aller Ausgabe-Budgets minus deine Ausgaben im Monat.</p>
   <h3>Kategorien</h3>
-  <p>Menü → <b>Kategorien</b>: Hauptkategorien anlegen, umbenennen, löschen und ihren Typ ändern. Unterkategorien hinzufügen oder mit ✕ entfernen. Beim Umbenennen werden alle bisherigen Buchungen automatisch angepasst. Gelöschte Kategorien: Die Buchungen bleiben erhalten und erscheinen in der Monatsübersicht unter „Ohne gültige Kategorie“.</p>
+  <p>Menü → <b>Kategorien</b>: Haupt- und Unterkategorien anlegen, mit <b>✎ umbenennen</b> und mit <b>🗑 löschen</b>. Beim Umbenennen werden alle bisherigen Buchungen automatisch angepasst.</p>
+  <p><b>Kategorie gelöscht?</b> Die betroffenen Buchungen bleiben erhalten und sind rot mit <b>„Kategorie eintragen“</b> markiert. Auf der Startseite und unter „Einnahmen und Ausgaben“ erscheint ein Hinweis. Tippe ihn an, öffne die Buchung, wähle eine neue Haupt- und Unterkategorie und speichere.</p>
   <h3>Monats- und Jahresübersicht</h3>
   <p><b>Monatsübersicht:</b> alle Monate eines Jahres nebeneinander, Aufteilung nach fest/variabel/spontan, nach Hauptkategorie mit Budgetvergleich und eine Detailansicht der Unterkategorien. Tabellen seitlich wischen.</p>
   <p><b>Jahresübersicht:</b> alle Jahre im Überblick und ein direkter Vergleich zweier Jahre. Durchschnitte beziehen sich auf Monate mit Buchungen, damit angefangene Jahre fair verglichen werden.</p>
@@ -719,17 +829,17 @@ function viewAnleitung(){
 }
 
 /* ---------- Datensicherung ---------- */
-function download(name,text,type){
+function download(name,text,type,onDone){
   const blob=new Blob([text],{type});const file=new File([blob],name,{type});
-  if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:name}).catch(()=>{});return;}
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);}
+  if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:name}).then(()=>onDone&&onDone()).catch(()=>{});return;}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);onDone&&onDone();}
 function toCSV(){
   const q=s=>{s=String(s??'');return /[;"\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
   const rows=[['Datum','Beschreibung','Betrag (€)','Einnahme / Ausgabe','Hauptkategorie','Unterkategorie','Zahlungsmethode','Ausgabenart','Notiz']];
   [...S.bookings].sort((a,b)=>a.date.localeCompare(b.date)).forEach(b=>rows.push([fmtDate(b.date),b.desc,b.amount.toFixed(2).replace('.',','),b.art,b.haupt,b.unter,b.zahlung,b.typ,b.notiz]));
   return '﻿'+rows.map(r=>r.map(q).join(';')).join('\r\n');}
 function parseCSV(text){
-  text=text.replace(/^﻿/,'');const sep=(text.split('\n')[0].match(/;/g)||[]).length>=(text.split('\n')[0].match(/,/g)||[]).length?';':',';
+  text=text.replace(/^﻿/,'');const hl=text.split('\n').find(l=>/datum/i.test(l))||text.split('\n')[0];const sep=(hl.match(/;/g)||[]).length>=(hl.match(/,/g)||[]).length?';':',';
   const out=[];let row=[],cur='',inQ=false;
   for(let i=0;i<text.length;i++){const ch=text[i];
     if(inQ){if(ch==='"'){if(text[i+1]==='"'){cur+='"';i++;}else inQ=false;}else cur+=ch;}
@@ -748,26 +858,62 @@ function mergeBookings(list){const have=new Set(S.bookings.map(sig)),ids=new Set
 function viewDaten(){
   const v=makeView('Datensicherung');
   v._refresh=()=>{
-    const nEx=S.bookings.filter(b=>b.ex).length;
+    const nEx=S.bookings.filter(b=>b.ex).length;const ds=daysSince(S.lastBackup);
     v.body.innerHTML=`
-      <div class="note" style="margin-top:0">Deine Daten liegen nur auf diesem Gerät. Sichere sie regelmäßig, z. B. einmal im Monat, in iCloud Drive oder der Dateien-App.</div>
-      <div class="sec"><h2>Sichern</h2><div class="card" style="padding:12px">
+      <div class="infobox"><b>Warum sichern?</b> Deine Buchungen liegen nur auf diesem iPhone, nicht bei GitHub, nicht bei Claude und nicht automatisch in der iCloud. Wenn du das App-Symbol löschst, Safari-Daten löschst oder ein neues iPhone bekommst, sind sie sonst weg. Mit einer Sicherung kannst du alles jederzeit wiederherstellen.<br><br>
+      <b>Empfehlung:</b> einmal im Monat sichern und die Datei in iCloud Drive ablegen.</div>
+      <div class="chips"><span class="chip ${S.bookings.length&&ds>30?'red':''}">Letzte Sicherung: ${S.lastBackup?fmtDate(S.lastBackup)+(ds>0?` (vor ${ds} Tag${ds===1?'':'en'})`:' (heute)'):'noch nie'}</span><span class="chip">${S.bookings.length} Buchungen</span></div>
+
+      <div class="sec"><h2>1. Sicherung speichern</h2><div class="card" style="padding:14px">
         <button class="btn" id="eJ" style="margin-top:0">Komplette Sicherung speichern</button>
-        <div class="note">Enthält Buchungen, Kategorien, Budgets und Anfangsbudget (JSON-Datei). Damit lässt sich alles wiederherstellen.</div>
-        <button class="btn ghost" id="eC" style="margin-top:14px">Buchungen als CSV für Excel</button>
-        <div class="note">Spalten wie in deiner Excel-Tabelle „Einnahmen und Ausgaben“.</div></div></div>
-      <div class="sec"><h2>Wiederherstellen und Importieren</h2><div class="card" style="padding:12px">
-        <button class="btn" id="iJ" style="margin-top:0">Sicherung wiederherstellen</button>
-        <div class="note">Ersetzt alle Daten auf diesem Gerät durch die gewählte Sicherung.</div>
-        <button class="btn ghost" id="iC" style="margin-top:14px">Buchungen importieren (CSV/JSON)</button>
-        <div class="note">Fügt Buchungen hinzu, ohne doppelte Einträge. Geeignet z. B. für eine aus Excel als „CSV UTF-8“ gespeicherte Tabelle „Einnahmen und Ausgaben“.</div>
+        <div class="note">Enthält alles: Buchungen, Kategorien, Budgets und Anfangsbudget.</div>
+        <details class="how" open><summary>Schritt für Schritt</summary><ol>
+          <li>Tippe auf <b>„Komplette Sicherung speichern“</b>.</li>
+          <li>Das Teilen-Menü öffnet sich. Tippe auf <b>„In Dateien sichern“</b> (eventuell etwas nach unten wischen).</li>
+          <li>Wähle <b>iCloud Drive</b> und am besten einen eigenen Ordner, z. B. „Haushaltsplan“. Den legst du beim ersten Mal über das Ordner-Symbol oben an.</li>
+          <li>Tippe oben rechts auf <b>„Sichern“</b>. Fertig – die Datei heißt z. B. <i>Haushaltsplan-Sicherung-${todayISO()}.json</i>.</li>
+          <li>Ältere Sicherungen kannst du in der Dateien-App löschen. Behalte aber immer mindestens die neueste.</li></ol></details></div></div>
+
+      <div class="sec"><h2>2. Sicherung wiederherstellen</h2><div class="card" style="padding:14px">
+        <button class="btn ghost" id="iJ" style="margin-top:0">Sicherung wiederherstellen</button>
+        <div class="note">Achtung: Ersetzt alle Daten auf diesem Gerät durch die gewählte Sicherung.</div>
+        <details class="how"><summary>Schritt für Schritt</summary><ol>
+          <li>Tippe auf <b>„Sicherung wiederherstellen“</b>.</li>
+          <li>Wähle <b>„Datei auswählen“</b> bzw. <b>„Durchsuchen“</b>, dann iCloud Drive → Ordner „Haushaltsplan“.</li>
+          <li>Tippe auf die <b>neueste</b> Datei <i>Haushaltsplan-Sicherung-….json</i>.</li>
+          <li>Bestätige die Rückfrage mit <b>OK</b>. Danach ist alles wieder da.</li></ol></details>
+        <details class="how"><summary>Neues iPhone? So ziehst du um</summary><ol>
+          <li>Auf dem <b>alten</b> iPhone eine aktuelle Sicherung speichern (Abschnitt 1).</li>
+          <li>Auf dem <b>neuen</b> iPhone die App-Adresse in Safari öffnen und über Teilen → <b>„Zum Home-Bildschirm“</b> hinzufügen.</li>
+          <li>Die App über das neue Symbol öffnen. Auf der Willkommen-Seite einfach „Los geht's“ tippen.</li>
+          <li>Menü → Datensicherung → <b>„Sicherung wiederherstellen“</b> und die Datei aus iCloud Drive wählen.</li></ol></details></div></div>
+
+      <div class="sec"><h2>3. Buchungen für Excel</h2><div class="card" style="padding:14px">
+        <button class="btn ghost" id="eC" style="margin-top:0">Buchungen als CSV für Excel</button>
+        <div class="note">Spalten wie in deiner Excel-Tabelle „Einnahmen und Ausgaben“. Nur zum Auswerten – zum Wiederherstellen immer die komplette Sicherung nutzen.</div>
+        <details class="how"><summary>Schritt für Schritt</summary><ol>
+          <li>Tippe auf <b>„Buchungen als CSV für Excel“</b> und speichere die Datei wie oben in iCloud Drive (oder schicke sie dir per Mail).</li>
+          <li>Am Notebook die Datei aus iCloud Drive (icloud.com) oder aus der Mail herunterladen.</li>
+          <li>Doppelklick – Excel öffnet sie direkt mit allen Spalten.</li></ol></details></div></div>
+
+      <div class="sec"><h2>4. Buchungen aus Excel übernehmen</h2><div class="card" style="padding:14px">
+        <button class="btn ghost" id="iC" style="margin-top:0">Buchungen importieren (CSV/JSON)</button>
+        <div class="note">Fügt Buchungen hinzu. Bereits vorhandene Buchungen werden nicht doppelt angelegt.</div>
+        <details class="how"><summary>Schritt für Schritt</summary><ol>
+          <li>Am Notebook die Excel öffnen und das Blatt <b>„Einnahmen und Ausgaben“</b> anklicken.</li>
+          <li>Datei → Speichern unter → Dateityp <b>„CSV UTF-8 (durch Trennzeichen getrennt)“</b>. Die Warnung, dass nur das aktuelle Blatt gespeichert wird, mit OK bestätigen.</li>
+          <li>Die CSV-Datei in iCloud Drive legen (oder per Mail an dich schicken und auf dem iPhone in „Dateien“ sichern).</li>
+          <li>Hier auf <b>„Buchungen importieren“</b> tippen und die Datei wählen.</li>
+          <li>Tipp: Lösche vorher die Beispielzeilen in der Excel, sonst werden sie mit importiert.</li></ol></details>
         <input type="file" id="fileIn" accept=".json,.csv,application/json,text/csv,text/plain" hidden></div></div>
-      <div class="sec"><h2>Beispieldaten</h2><div class="card" style="padding:12px">
+
+      <div class="sec"><h2>Beispieldaten</h2><div class="card" style="padding:14px">
         ${nEx?`<div class="note" style="margin-top:0">${nEx} Beispielbuchungen aus deiner Excel sind geladen.</div><button class="btn danger" id="dEx">Beispieldaten löschen</button>`:
         `<div class="note" style="margin-top:0">Lädt die ${EXAMPLES.length} Beispielbuchungen aus deiner Excel zum Ausprobieren. Du kannst sie später mit einem Tipp wieder entfernen.</div><button class="btn ghost" id="lEx">Beispieldaten laden</button>`}</div></div>
-      <div class="sec"><h2>Alles zurücksetzen</h2><div class="card" style="padding:12px"><button class="btn danger" id="reset" style="margin-top:0">Alle Daten löschen</button></div></div>`;
+      <div class="sec"><h2>Alles zurücksetzen</h2><div class="card" style="padding:14px"><div class="note" style="margin-top:0">Löscht alle Buchungen und Einstellungen auf diesem Gerät. Vorher unbedingt sichern.</div><button class="btn danger" id="reset">Alle Daten löschen</button></div></div>`;
     const fi=v.body.querySelector('#fileIn');let mode='';
-    v.body.querySelector('#eJ').onclick=()=>download(`Haushaltsplan-Sicherung-${todayISO()}.json`,JSON.stringify(S,null,1),'application/json');
+    const markDone=()=>{S.lastBackup=todayISO();save();refresh();toast('Sicherung erstellt');};
+    v.body.querySelector('#eJ').onclick=()=>download(`Haushaltsplan-Sicherung-${todayISO()}.json`,JSON.stringify({...S,lastBackup:todayISO()},null,1),'application/json',markDone);
     v.body.querySelector('#eC').onclick=()=>download(`Haushaltsplan-Buchungen-${todayISO()}.csv`,toCSV(),'text/csv');
     v.body.querySelector('#iJ').onclick=()=>{mode='restore';fi.click();};
     v.body.querySelector('#iC').onclick=()=>{mode='merge';fi.click();};
@@ -778,7 +924,7 @@ function viewDaten(){
           S=d;S.setupDone=true;save();refresh();toast('Sicherung wiederhergestellt');}
         else{let list;if(/^\s*[\[{]/.test(text)){const d=JSON.parse(text);list=(d.bookings||d).map(b=>({...b,id:b.id||uid()}));}else list=parseCSV(text);
           const n=mergeBookings(list);S.setupDone=true;save();refresh();toast(`${n} Buchungen importiert`);}
-      }catch(e){alert('Die Datei konnte nicht gelesen werden.');}};
+      }catch(e){alert('Die Datei konnte nicht gelesen werden. Bitte eine Sicherung (.json) oder eine CSV-Datei wählen.');}};
     const dEx=v.body.querySelector('#dEx');if(dEx)dEx.onclick=()=>{if(!confirm('Alle Beispielbuchungen löschen? Deine eigenen Buchungen bleiben erhalten.'))return;
       S.bookings=S.bookings.filter(b=>!b.ex);if(S.start.ex){S.start={betrag:0,datum:todayISO()};toast('Beispiele gelöscht – bitte Anfangsbudget eintragen');}else toast('Beispiele gelöscht');save();refresh();};
     const lEx=v.body.querySelector('#lEx');if(lEx)lEx.onclick=()=>{loadExamples();refresh();toast('Beispieldaten geladen');};
@@ -797,14 +943,16 @@ function setup(){
   const v=makeView('Willkommen',{left:'',up:true});v.querySelector('.hb.l').style.visibility='hidden';
   v.body.innerHTML=`<div class="guide"><h3 style="margin-top:4px">Dein Haushaltsplan</h3>
     <p>Behalte Einnahmen und Ausgaben im Blick. Alle Daten bleiben <b>nur auf diesem iPhone</b>.</p>
-    <p>Trage zum Start ein, wie viel Geld du heute auf dem Konto hast. Das kannst du später unter Menü → Budgets ändern.</p></div>
+    <p>Trage zum Start ein, wie viel Geld du heute auf dem Konto hast. Bist du im Minus (z. B. Dispo), wähle <b>„− Minus“</b> und trage den Betrag ein. Das kannst du später unter Menü → Budgets ändern.</p></div>
     <label class="fl" for="w1">Anfangsbudget (aktueller Kontostand)</label>
+    ${signSeg('wS',0)}
     <div class="amount" style="border:1px solid var(--line);border-radius:12px;padding:8px 12px"><input id="w1" inputmode="decimal" placeholder="0,00" style="font-size:34px"><span style="font-size:24px">€</span></div>
     <label class="fl" for="w2">Stand am</label><input class="inp" id="w2" type="date" value="${todayISO()}">
     <button class="btn" id="wGo">Los geht's</button>
     <button class="btn ghost" id="wEx" style="margin-top:12px">Erst mit Beispieldaten ausprobieren</button>
     <div class="note">Kategorien und Budgets sind aus deiner Excel übernommen und lassen sich im Menü anpassen.</div>`;
-  v.querySelector('#wGo').onclick=()=>{const a=parseAmount(v.querySelector('#w1').value||'0');S.start={betrag:isNaN(a)?0:a,datum:v.querySelector('#w2').value||todayISO()};S.setupDone=true;save();refresh();v.close();};
+  const wSign=bindSign(v,'wS',()=>{const neg=wSign()<0;const inp=v.querySelector('#w1');inp.style.color=neg?'var(--red)':'';inp.placeholder=neg?'−0,00':'0,00';});
+  v.querySelector('#wGo').onclick=()=>{const a=signedValue(v.querySelector('#w1').value,wSign());S.start={betrag:isNaN(a)?0:Math.round(a*100)/100,datum:v.querySelector('#w2').value||todayISO()};S.setupDone=true;save();refresh();v.close();};
   v.querySelector('#wEx').onclick=()=>{loadExamples();refresh();v.close();toast('Beispieldaten geladen');};
 }
 
